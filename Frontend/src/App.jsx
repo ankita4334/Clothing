@@ -1,8 +1,14 @@
-
+import {BrowserRouter, Route, Routes} from "react-router-dom"
+import Navbar from "./components/Navbar"
 function App() {
   return (
     <>
-     <button className="btn btn-primary">Primary</button>
+    <Navbar/>
+      {/* <BrowserRouter>
+        <Routes>
+          
+        </Routes>
+      </BrowserRouter> */}
     </>
   )
 }
