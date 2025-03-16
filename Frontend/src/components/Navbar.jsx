@@ -1,22 +1,26 @@
-import React from 'react'
+import React from "react";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   return (
     <>
-      <div className="navbar bg-base-100  sticky top-0 z-10 bg-white shadow-md">
+      <div className="navbar bg-base-100 sticky top-0 z-10 bg-white shadow-md">
         {/* Left side - Brand and Navigation Links */}
         <div className="flex-1 flex space-x-6">
-          <a className="btn btn-ghost mt-3 text-4xl  "style={{fontFamily: "Courgette"}}>Bliss</a>
+          <Link to="/" className="btn btn-ghost mt-3 text-4xl" style={{ fontFamily: "Courgette" }}>
+            Bliss
+          </Link>
           <ul className="menu menu-horizontal space-x-4 text-2xl">
-            <li><a>Home</a></li>
-            <li><a>Shop</a></li>
-            <li><a>About</a></li>
-            <li><a>Contact</a></li>
+            <li><Link to="/">Home</Link></li>
+            <li><Link to="/shop">Shop</Link></li>
+            <li><Link to="/about">About</Link></li>
+            <li><Link to="/contact">Contact</Link></li>
           </ul>
         </div>
 
         {/* Right side - Cart and Profile */}
         <div className="flex-none mr-5">
+          {/* Cart */}
           <div className="dropdown dropdown-end mr-3">
             <div tabIndex={0} role="button" className="btn btn-ghost btn-circle">
               <div className="indicator">
@@ -26,9 +30,7 @@ const Navbar = () => {
                 <span className="badge badge-sm indicator-item">8</span>
               </div>
             </div>
-            <div
-              tabIndex={0}
-              className="card card-compact dropdown-content bg-base-100 z-1 mt-3 w-52 shadow">
+            <div tabIndex={0} className="card card-compact dropdown-content bg-base-100 z-10 mt-3 w-52 shadow">
               <div className="card-body">
                 <span className="text-lg font-bold">8 Items</span>
                 <span className="text-info">Subtotal: $999</span>
@@ -39,31 +41,28 @@ const Navbar = () => {
             </div>
           </div>
 
+          {/* Profile */}
           <div className="dropdown dropdown-end">
             <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
-              <div className="w-10 rounded-full">
-                <img
-                  alt="Tailwind CSS Navbar component"
-                  src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
+              <div className="w-14 rounded-full">
+                <img alt="Profile" src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
               </div>
             </div>
-            <ul
-              tabIndex={0}
-              className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
+            <ul tabIndex={0} className="menu menu-sm dropdown-content bg-base-100 rounded-box z-10 mt-3 w-64 p-4 shadow">
               <li>
-                <a className="justify-between">
+                <Link to="/login" className="justify-between">
                   Profile
-                  <span className="badge">New</span>
-                </a>
+                  <Link to="/register" className="badge">New</Link>
+                </Link>
               </li>
-              <li><a>Settings</a></li>
-              <li><a>Logout</a></li>
+              <li><Link to="/settings">Settings</Link></li>
+              <li><Link to="/login">Logout</Link></li>
             </ul>
           </div>
         </div>
       </div>
     </>
-  )
-}
+  );
+};
 
-export default Navbar
+export default Navbar;
