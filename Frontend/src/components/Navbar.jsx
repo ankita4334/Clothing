@@ -3,7 +3,7 @@ import React from 'react'
 const Navbar = () => {
   return (
     <>
-      <div className="navbar bg-base-100 shadow-sm">
+      <div className="navbar bg-base-100  sticky top-0 z-10 bg-white shadow-md">
         {/* Left side - Brand and Navigation Links */}
         <div className="flex-1 flex space-x-6">
           <a className="btn btn-ghost mt-3 text-4xl  "style={{fontFamily: "Courgette"}}>Bliss</a>
