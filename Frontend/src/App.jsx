@@ -10,6 +10,7 @@ import Slider from "./components/Slider";
 import Footer from "./components/Footer";
 import Hero from "./components/Hero";
 import Categories from "./components/Categories";
+import AboutUs from "./components/AboutUs";
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
         <Route path="/slider" element={<Slider/>} />
         <Route path="/hero" element={<Hero/>} />
         <Route path="/categories" element={<Categories/>} />
+        <Route path="/about" element={<AboutUs/>} />
       </Routes>
       <Footer />
     </BrowserRouter>

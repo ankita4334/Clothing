@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 const Navbar = () => {
   return (
     <>
-      <div className="navbar bg-base-100 sticky top-0 z-10 bg-white shadow-md">
+      <div className="navbar bg-base-100 sticky top-0 z-10 bg-white shadow-md px-6">
         {/* Left side - Brand and Navigation Links */}
         <div className="flex-1 flex space-x-6">
           <Link to="/" className="btn btn-ghost mt-3 text-4xl" style={{ fontFamily: "Courgette" }}>
@@ -18,10 +18,24 @@ const Navbar = () => {
           </ul>
         </div>
 
+        {/* Center - Search Bar */}
+        <div className="flex-1 flex justify-center">
+          <div className="relative w-full max-w-xs">
+            <input
+              type="text"
+              placeholder="Search for products..."
+              className="input input-bordered w-full text-lg px-4 py-2 rounded-full"
+            />
+            <button className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-black text-white px-4 py-1 rounded-full hover:bg-black-600">
+              Search
+            </button>
+          </div>
+        </div>
+
         {/* Right side - Cart and Profile */}
-        <div className="flex-none mr-5">
+        <div className="flex-none ml-2 flex space-x-3">
           {/* Cart */}
-          <div className="dropdown dropdown-end mr-3">
+          <div className="dropdown dropdown-end">
             <div tabIndex={0} role="button" className="btn btn-ghost btn-circle">
               <div className="indicator">
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">

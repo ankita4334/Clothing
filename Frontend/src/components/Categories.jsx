@@ -1,11 +1,12 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const Categories = () => {
   const categories = [
-    { name: "Men's Fashion", img: "image/mens.jpeg" },
-    { name: "Women's Fashion", img: "image/womens.jpeg" },
-    { name: "Kid's Fashion", img: "image/kids.jpeg" },
-    { name: "Sports Fashion", img: "image/sport.jpeg" },
+    { name: "Men's Fashion", img: "image/mens.jpeg", link: "/shop" },
+    { name: "Women's Fashion", img: "image/womens.jpeg", link: "/shop" },
+    { name: "Kid's Fashion", img: "image/kids.jpeg", link: "/shop" },
+    { name: "Sports Fashion", img: "image/sport.jpeg", link: "/shop" },
   ];
 
   return (
@@ -15,12 +16,14 @@ const Categories = () => {
       </h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         {categories.map((category, index) => (
-          <div key={index} className="card bg-white shadow-lg rounded-lg overflow-hidden transition-transform transform hover:scale-105">
-            <img src={category.img} alt={category.name} className="w-full h-48 object-cover" />
-            <div className="p-4 text-center">
-              <h3 className="text-xl font-semibold">{category.name}</h3>
+          <Link key={index} to={category.link} className="no-underline">
+            <div className="card bg-white shadow-lg rounded-lg overflow-hidden transition-transform transform hover:scale-105">
+              <img src={category.img} alt={category.name} className="w-full h-48 object-cover" />
+              <div className="p-4 text-center">
+                <h3 className="text-xl font-semibold">{category.name}</h3>
+              </div>
             </div>
-          </div>
+          </Link>
         ))}
       </div>
     </div>
