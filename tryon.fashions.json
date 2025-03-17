@@ -1,0 +1,48 @@
+[{
+  "_id": {
+    "$oid": "67d85accdd1b44467f54dde2"
+  },
+  "name": "Casual T-Shirt",
+  "image": "https://i.pinimg.com/236x/c0/b6/7d/c0b67da30a570b9dfb979a6e6b0f92ad.jpg",
+  "price": "20 USD"
+},
+{
+  "_id": {
+    "$oid": "67d85accdd1b44467f54dde3"
+  },
+  "name": "Denim Jeans",
+  "image": "https://i.pinimg.com/236x/c0/b6/7d/c0b67da30a570b9dfb979a6e6b0f92ad.jpg",
+  "price": "40 USD"
+},
+{
+  "_id": {
+    "$oid": "67d85accdd1b44467f54dde4"
+  },
+  "name": "Leather Jacket",
+  "image": "https://i.pinimg.com/236x/c0/b6/7d/c0b67da30a570b9dfb979a6e6b0f92ad.jpg",
+  "price": "120 USD"
+},
+{
+  "_id": {
+    "$oid": "67d85accdd1b44467f54dde5"
+  },
+  "name": "Floral Dress",
+  "image": "https://i.pinimg.com/236x/c0/b6/7d/c0b67da30a570b9dfb979a6e6b0f92ad.jpg",
+  "price": "60 USD"
+},
+{
+  "_id": {
+    "$oid": "67d85accdd1b44467f54dde6"
+  },
+  "name": "Sneakers",
+  "image": "https://i.pinimg.com/236x/c0/b6/7d/c0b67da30a570b9dfb979a6e6b0f92ad.jpg",
+  "price": "80 USD"
+},
+{
+  "_id": {
+    "$oid": "67d85accdd1b44467f54dde7"
+  },
+  "name": "Hoodie",
+  "image": "https://i.pinimg.com/236x/c0/b6/7d/c0b67da30a570b9dfb979a6e6b0f92ad.jpg",
+  "price": "50 USD"
+}]

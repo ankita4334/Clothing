@@ -4,8 +4,8 @@ const fashion=async(req,res)=>{
     try 
     {
 
-        const response=await Fashion.find({});
-        return res.status(200).json(response)
+        const response=await Fashion.find();
+        res.status(200).json({message:response});
         
         if(!response)
         {
@@ -14,7 +14,6 @@ const fashion=async(req,res)=>{
 
     } catch (error) {
         res.status(400).json({message:"error"});
-        console.log(error)
     }
 }
 

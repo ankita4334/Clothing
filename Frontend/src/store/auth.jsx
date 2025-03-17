@@ -5,7 +5,7 @@ export const AuthContext = createContext();
 export const AuthProvider = ({ children }) => {
   const [token, setToken] = useState(() => localStorage.getItem("token") || null);
   const [user, setUser] = useState(() => JSON.parse(localStorage.getItem("user")) || null);
-  // const[fashion,setFashion]=useState([]);
+  const[fashion,setFashion]=useState([]);
   
   // Store token and user in localStorage
   const storeTokenInLs = (serverToken) => {
@@ -47,37 +47,37 @@ export const AuthProvider = ({ children }) => {
   };
 
 
-  // const getFashion=async()=>{
-  //   try {
-  //       const response=await fetch("http://localhost:3000/fashion",{
-  //           method:"GET",
+  const getFashion=async()=>{
+    try {
+        const response=await fetch("http://localhost:3000/fashion",{
+            method:"GET",
     
-  //       });
+        });
     
-  //       if(response.ok)
-  //       {
-  //           const data=await response.json();
-  //           console.log("fashion data",data.message);
-  //           setFashion(data.message);
-  //       }
+        if(response.ok)
+        {
+            const data=await response.json();
+            console.log("fashion data",data.message);
+            setFashion(data.message);
+        }
         
-  //   } catch (error) {
-  //       console.log(`service frontend error ${error}`);
-  //   }
+    } catch (error) {
+        console.log(`service frontend error ${error}`);
+    }
     
-  //   }
+    }
 
   // Fetch user data when token changes
   useEffect(() => {
     if (token) {
      
       userAuthentication();
-      // getFashion();
+      getFashion();
     }
   }, [token]);
 
   return (
-    <AuthContext.Provider value={{  isLoggedIn,token, storeTokenInLs, user,LogoutUser }}>
+    <AuthContext.Provider value={{  isLoggedIn,token, storeTokenInLs, user,fashion,LogoutUser }}>
       {children}
     </AuthContext.Provider>
   );
