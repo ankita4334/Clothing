@@ -11,7 +11,7 @@ const Home = () => {
     <>
       <div className="main">
         {/* Fix: Added 'overflow-hidden' to prevent scrolling */}
-        <div className="carousel w-full h-[700px] overflow-hidden">
+        <div className="carousel w-full h-[700px] overflow-hidden rounded-md">
           
           {/* Slide 1 */}
           <div id="slide1" className="carousel-item relative w-full h-full flex items-center justify-center transition-all duration-700 ease-in-out">
@@ -34,7 +34,7 @@ const Home = () => {
 
           {/* Slide 2 */}
           <div id="slide2" className="carousel-item relative w-full h-full flex items-center justify-center transition-all duration-700 ease-in-out">
-            <img src="image/j1.jpg" className="w-full h-full object-cover" />
+            <img src="image/j4.jpg" className="w-full h-full object-cover" />
             <div className="absolute inset-0 bg-gradient-to-r from-black/60 to-transparent"></div>
             <div className="absolute left-10 md:left-20 top-1/2 -translate-y-1/2 text-white drop-shadow-2xl space-y-4 max-w-lg">
               <h2 className="text-4xl md:text-5xl font-extrabold leading-tight">Wear the Future, Own the Streets</h2>
@@ -53,7 +53,7 @@ const Home = () => {
 
           {/* Slide 3 */}
           <div id="slide3" className="carousel-item relative w-full h-full flex items-center justify-center transition-all duration-700 ease-in-out">
-            <img src="image/jiwon.jpg" className="w-full h-full object-cover" />
+            <img src="image/j2.jpg" className="w-full h-full object-cover" />
             <div className="absolute inset-0 bg-gradient-to-r from-black/60 to-transparent"></div>
             <div className="absolute left-10 md:left-20 top-1/2 -translate-y-1/2 text-white drop-shadow-2xl space-y-4 max-w-lg">
               <h2 className="text-4xl md:text-5xl font-extrabold leading-tight">Where Elegance Meets Everyday Glam</h2>
@@ -72,7 +72,7 @@ const Home = () => {
 
           {/* Slide 4 */}
           <div id="slide4" className="carousel-item relative w-full h-full flex items-center justify-center transition-all duration-700 ease-in-out">
-            <img src="image/j2.jpg" className="w-full h-full object-cover" />
+            <img src="image/l1.jpg" className="w-full h-full object-cover" />
             <div className="absolute inset-0 bg-gradient-to-r from-black/60 to-transparent"></div>
             <div className="absolute left-10 md:left-20 top-1/2 -translate-y-1/2 text-white drop-shadow-2xl space-y-4 max-w-lg">
               <h2 className="text-4xl md:text-5xl font-extrabold leading-tight">Fashion with a Conscience</h2>
