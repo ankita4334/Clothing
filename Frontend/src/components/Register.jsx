@@ -1,6 +1,56 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+
 
 const Register = () => {
+  const [user, setUser] = useState({
+    username: "",
+    email: "",
+    password: "",
+  });
+
+  const navigate=useNavigate();
+
+  const handleInput = (e) => {
+    let name = e.target.name;
+    let value = e.target.value;
+
+    setUser({
+      ...user,
+      [name]: value,
+    });
+  };
+
+  // handle form on submit
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    console.log(user);
+
+    try {
+      const response = await fetch("http://localhost:3000/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(user),
+      });
+      console.log("response data : ", response);
+
+      if (response.ok) {
+        const responseData = await response.json();
+        alert("registration successful");
+        setUser({ username: "", email: "", password: "" });
+        console.log(responseData);
+        navigate("/login")
+      } else {
+        console.log("error inside response", "error");
+      }
+    } catch (error) {
+      console.error("Error", error);
+    }
+  };
+
   return (
     <section className="flex justify-center items-center min-h-screen bg-gray-100">
       <div className="card w-full max-w-3xl bg-white shadow-xl p-8">
@@ -11,14 +61,17 @@ const Register = () => {
         <div className="flex flex-col lg:flex-row justify-center items-center gap-8">
           {/* Registration Form */}
           <div className="w-full lg:w-1/2">
-            <form className="space-y-4">
+            <form className="space-y-4" onSubmit={handleSubmit}>
               <div className="form-control">
                 <label className="label">
                   <span className="label-text">Username</span>
                 </label>
                 <input
                   type="text"
+                  name="username"
                   placeholder="Username"
+                  value={user.username}
+                  onChange={handleInput}
                   className="input input-bordered w-full"
                   required
                 />
@@ -30,19 +83,10 @@ const Register = () => {
                 </label>
                 <input
                   type="email"
+                  name="email"
                   placeholder="name@example.com"
-                  className="input input-bordered w-full"
-                  required
-                />
-              </div>
-
-              <div className="form-control">
-                <label className="label">
-                  <span className="label-text">Contact Number</span>
-                </label>
-                <input
-                  type="tel"
-                  placeholder="Contact Number"
+                  value={user.email}
+                  onChange={handleInput}
                   className="input input-bordered w-full"
                   required
                 />
@@ -54,8 +98,11 @@ const Register = () => {
                 </label>
                 <input
                   type="password"
+                  name="password"
                   placeholder="Password"
                   className="input input-bordered w-full"
+                  value={user.password}
+                  onChange={handleInput}
                   required
                 />
               </div>

@@ -1,6 +1,49 @@
+import { useState } from "react"; // Ensure this import is present
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
+  const [user, setUser] = useState({
+    email: "",
+    password: "",
+  });
+
+  const navigate = useNavigate();
+
+  const handleInput = (e) => {
+    let name = e.target.name;
+    let value = e.target.value;
+
+    setUser({
+      ...user,
+      [name]: value,
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    console.log(user);
+    try {
+      const response = await fetch(`http://localhost:3000/login`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(user),
+      });
+
+      if (response.ok) {
+        const responseData = await response.json();
+        console.log("after login: ", responseData);
+        // toast.success("Registration Successful");
+        // saveTokenInLocalStr(responseData.token);
+        navigate("/");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <section className="flex justify-center items-center min-h-screen bg-gray-100">
       <div className="card w-full max-w-3xl bg-white shadow-xl p-8">
@@ -11,15 +54,18 @@ const Login = () => {
         <div className="flex flex-col lg:flex-row justify-center items-center gap-8">
           {/* Login Form */}
           <div className="w-full lg:w-1/2">
-            <form className="space-y-4">
+            <form className="space-y-4" onSubmit={handleSubmit}>
               <div className="form-control">
                 <label className="label">
                   <span className="label-text">Email</span>
                 </label>
                 <input
                   type="email"
+                  name="email"
                   placeholder="name@example.com"
                   className="input input-bordered w-full"
+                  value={user.email}
+                  onChange={handleInput}
                   required
                 />
               </div>
@@ -30,7 +76,10 @@ const Login = () => {
                 </label>
                 <input
                   type="password"
+                  name="password"
                   placeholder="Password"
+                  value={user.password}
+                  onChange={handleInput}
                   className="input input-bordered w-full"
                   required
                 />
