@@ -43,7 +43,7 @@ function Pslider() {
           {/* Card 1 */}
           <div className="carousel-item w-[350px] h-[500px] relative flex-shrink-0 transition-transform duration-300 hover:scale-105">
             <img
-              src="image/top.jpeg"
+              src="image/s1.jpg"
               alt="Top"
               className="rounded-lg w-full h-full object-cover"
             />
@@ -55,7 +55,7 @@ function Pslider() {
           {/* Card 2 */}
           <div className="carousel-item w-[350px] h-[500px] relative flex-shrink-0 transition-transform duration-300 hover:scale-105">
             <img
-              src="image/pant.jpeg"
+              src="image/s2.jpg"
               alt="Bottomwear"
               className="rounded-lg w-full h-full object-cover"
             />
@@ -67,7 +67,7 @@ function Pslider() {
           {/* Card 3 */}
           <div className="carousel-item w-[350px] h-[500px] relative flex-shrink-0 transition-transform duration-300 hover:scale-105">
             <img
-              src="image/tshirt1.jpeg"
+              src="image/s3.jpg"
               alt="T-shirt"
               className="rounded-lg w-full h-full object-cover"
             />
@@ -79,7 +79,7 @@ function Pslider() {
           {/* Card 4 */}
           <div className="carousel-item w-[350px] h-[500px] relative flex-shrink-0 transition-transform duration-300 hover:scale-105">
             <img
-              src="image/outwear.jpeg"
+              src="image/s4.jpg"
               alt="Outwear"
               className="rounded-lg w-full h-full object-cover"
             />
@@ -91,7 +91,7 @@ function Pslider() {
           {/* Card 5 */}
           <div className="carousel-item w-[350px] h-[500px] relative flex-shrink-0 transition-transform duration-300 hover:scale-105">
             <img
-              src="image/inner.jpeg"
+              src="image/s5.jpg"
               alt="Innerwear"
               className="rounded-lg w-full h-full object-cover"
             />
@@ -103,7 +103,7 @@ function Pslider() {
           {/* Card 6 */}
           <div className="carousel-item w-[350px] h-[500px] relative flex-shrink-0 transition-transform duration-300 hover:scale-105">
             <img
-              src="image/shorts.jpeg"
+              src="image/s6.jpg"
               alt="Shorts"
               className="rounded-lg w-full h-full object-cover"
             />
