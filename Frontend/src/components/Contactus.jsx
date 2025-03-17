@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { FaMapMarkerAlt, FaEnvelope, FaPhone } from "react-icons/fa";
 import { useAuth } from "../store/auth";
+import {toast} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Contactus = () => {
 
@@ -54,13 +56,15 @@ const Contactus = () => {
        {
          const data=await response.json();
          console.log("contact",data);
-        alert("message send successfully");
+         toast.success('Message Send successful!');
         setContact({
           username:"",
           email:"",
           message:"",
         });
-       }
+       }else{
+               toast.error(responseData.extraDetails?responseData.extraDetails.join(" ,"):responseData.message);
+             }
 
     } catch (error) {
       console.log(error);

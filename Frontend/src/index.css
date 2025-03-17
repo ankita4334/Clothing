@@ -39,6 +39,7 @@
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 20px;
+  padding:50px 50px 50px 50px
 }
 
 .feature-card {
@@ -50,7 +51,7 @@
 }
 .feature-icon {
   font-size: 2.5rem;
-  color: #6a11cb;
+  color: #0a090a;
   margin-bottom: 15px;
 }
 

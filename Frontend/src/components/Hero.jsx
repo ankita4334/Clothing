@@ -1,4 +1,6 @@
 import React from "react";
+import Lottie from "lottie-react"
+import anim1 from "../animation/h1.json"
 
 const Hero = () => {
   return (
@@ -18,7 +20,7 @@ const Hero = () => {
 
       {/* Right Side - Avatar Image Shifted Left */}
       <div className="order-2 transform -translate-x-10 md:-translate-x-20">
-        <img src="image/removed1.png" alt="Fashion Avatar" className="w-48 md:w-64" />
+        <img src="image/l2.png" alt="Fashion Avatar" className="w-48 md:w-64" />
       </div>
     </div>
   );

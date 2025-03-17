@@ -2,6 +2,8 @@ import { useState } from "react"; // Ensure this import is present
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../store/auth";
+import {toast} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Login = () => {
   const [user, setUser] = useState({
@@ -42,9 +44,11 @@ const Login = () => {
        
         // toast.success("Registration Successful");
         setUser({email:"",password:""});
-        alert("Login Successfull")
+        toast.success('Login successful!');
          navigate("/");
        
+      }else{
+        toast.error(responseData.extraDetails?responseData.extraDetails.join(" ,"):responseData.message);
       }
     } catch (error) {
       console.log(error);

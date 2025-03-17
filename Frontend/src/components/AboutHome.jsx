@@ -1,7 +1,7 @@
 import React from 'react'
 import { useAuth } from '../store/auth'
 import Lottie from "lottie-react"
-import anim1 from "../animation/a2.json"
+import anim1 from "../animation/h1.json"
 
 const AboutHome = () => {
     const{user}=useAuth();

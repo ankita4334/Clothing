@@ -11,7 +11,7 @@ const Navbar = () => {
         {/* Left Side - Brand and Navigation Links */}
         <div className="flex-1 flex space-x-6">
           <Link to="/" className="btn btn-ghost mt-3 text-4xl" style={{ fontFamily: "Courgette" }}>
-            Bliss
+            Bliss<i class="fa-brands fa-bluesky"></i> {/* Black heart */}
           </Link>
           <ul className="menu menu-horizontal space-x-4 text-2xl">
             <li><Link to="/">Home</Link></li>

@@ -2,6 +2,8 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../store/auth";
+import {toast} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 const Register = () => {
@@ -43,12 +45,12 @@ const Register = () => {
       if (response.ok) {
         storeTokenInLs(responseData.token);
        
-        alert("registration successful");
+        toast.success('Registration successful!');
         setUser({ username: "", email: "", password: "" });
         console.log(responseData);
         navigate("/login")
-      } else {
-        console.log("error inside response", "error");
+      } else{
+        toast.error(responseData.extraDetails?responseData.extraDetails.join(" ,"):responseData.message);
       }
     } catch (error) {
       console.error("Error", error);

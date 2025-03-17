@@ -12,6 +12,7 @@ import Hero from "./components/Hero";
 import Categories from "./components/Categories";
 import AboutUs from "./components/AboutUs";
 import Logout from "./components/Logout";
+import ProtectedRoutes from "./utils/ProtectedRoutes";
 
 function App() {
   return (
@@ -22,6 +23,9 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/logout" element={<Logout />} />
+
+        <Route element={<ProtectedRoutes/>}>
+
         <Route path="/shop" element={<Shop />} />
         <Route path="/itemhome" element={<ItemHome />} />
         <Route path="/contact" element={<Contactus />} />
@@ -29,6 +33,8 @@ function App() {
         <Route path="/hero" element={<Hero/>} />
         <Route path="/categories" element={<Categories/>} />
         <Route path="/about" element={<AboutUs/>} />
+       
+        </Route>
       </Routes>
       <Footer />
     </BrowserRouter>
