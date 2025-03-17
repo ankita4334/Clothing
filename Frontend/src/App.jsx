@@ -13,6 +13,7 @@ import Categories from "./components/Categories";
 import AboutUs from "./components/AboutUs";
 import Logout from "./components/Logout";
 import ProtectedRoutes from "./utils/ProtectedRoutes";
+import Pslider from "./components/Pslider";
 
 function App() {
   return (
@@ -33,6 +34,7 @@ function App() {
         <Route path="/hero" element={<Hero/>} />
         <Route path="/categories" element={<Categories/>} />
         <Route path="/about" element={<AboutUs/>} />
+        <Route path="/pslider" element={<Pslider/>} />
        
         </Route>
       </Routes>

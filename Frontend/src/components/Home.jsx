@@ -5,6 +5,7 @@ import Categories from "./Categories";
 import AboutUs from "./AboutUs";
 import Feature from "./Feature";
 import AboutHome from "./AboutHome";
+import Pslider from "./Pslider";
 
 const Home = () => {
   return (
@@ -91,6 +92,7 @@ const Home = () => {
 
         </div>
       </div>
+      <Pslider />
       <Hero />
       
       <Categories />
