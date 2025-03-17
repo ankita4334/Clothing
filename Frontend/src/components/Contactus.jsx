@@ -1,7 +1,73 @@
-import React from "react";
+import React, { useState } from "react";
 import { FaMapMarkerAlt, FaEnvelope, FaPhone } from "react-icons/fa";
+import { useAuth } from "../store/auth";
 
 const Contactus = () => {
+
+  const [contact, setContact] = useState({
+    username: "",
+    email: "",
+    message: "",
+  });
+
+  //contact form main set krna data
+  const[userData,setUserData]=useState(true);
+  const {user}=useAuth();
+
+  if(userData && user)
+  {
+    setContact({
+      username:user.username,
+      email:user.email,
+      message:"",
+    });
+
+    setUserData(false);
+  }
+  
+
+  const handleInput = (e) => {
+    let name = e.target.name;
+    let value = e.target.value;
+
+    setContact({
+      ...contact,
+      [name]: value,
+    });
+  };
+
+  const handleSubmit =async (e) => {
+    e.preventDefault();
+
+    try 
+    {
+       
+      const response=await fetch("http://localhost:3000/contact",{
+        method:"POST",
+        headers:{
+          "Content-Type":"application/json"
+        },
+        body:JSON.stringify(contact)
+      });
+
+       if(response.ok)
+       {
+         const data=await response.json();
+         console.log("contact",data);
+        alert("message send successfully");
+        setContact({
+          username:"",
+          email:"",
+          message:"",
+        });
+       }
+
+    } catch (error) {
+      console.log(error);
+    }
+    
+  };
+
   return (
     <section className="py-10 bg-gray-100">
       <div className="container mx-auto px-4">
@@ -14,26 +80,28 @@ const Contactus = () => {
         {/* Form Section */}
         <div className="flex justify-center">
           <div className="card w-full max-w-md bg-white shadow-xl p-6 rounded-lg">
-            <form>
+            <form onSubmit={handleSubmit}>
               <div className="form-control">
                 <label className="label">
                   <span className="label-text">Full Name</span>
                 </label>
-                <input type="text" placeholder="Enter your full name" className="input input-bordered w-full" required />
+                <input type="text"  name="username" placeholder="Enter your full name" className="input input-bordered w-full" value={contact.username} onChange={handleInput} required />
               </div>
               
               <div className="form-control mt-4">
                 <label className="label">
                   <span className="label-text">Email Address</span>
                 </label>
-                <input type="email" placeholder="Enter your email" className="input input-bordered w-full" required />
+                <input type="email"  name="email" placeholder="Enter your email" className="input input-bordered w-full"   value={contact.email}
+                      onChange={handleInput}required />
               </div>
 
               <div className="form-control mt-4">
                 <label className="label">
                   <span className="label-text">Subject</span>
                 </label>
-                <input type="text" placeholder="Enter subject" className="input input-bordered w-full" required />
+                <input type="text"  name="message" placeholder="Enter subject" className="input input-bordered w-full" value={contact.message}
+                      onChange={handleInput} required />
               </div>
 
               <button className="btn bg-black text-white w-full mt-5 hover:bg-gray-800">

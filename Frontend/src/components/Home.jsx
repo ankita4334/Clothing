@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import Hero from "./Hero";
 import Categories from "./Categories";
+import AboutUs from "./AboutUs";
 
 const Home = () => {
   return (
@@ -89,7 +90,9 @@ const Home = () => {
         </div>
       </div>
       <Hero />
+      
       <Categories />
+     <AboutUs/>
     </>
   );
 };

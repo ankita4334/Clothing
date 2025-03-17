@@ -1,6 +1,7 @@
 import { useState } from "react"; // Ensure this import is present
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../store/auth";
 
 const Login = () => {
   const [user, setUser] = useState({
@@ -9,6 +10,7 @@ const Login = () => {
   });
 
   const navigate = useNavigate();
+  const {storeTokenInLs}=useAuth();
 
   const handleInput = (e) => {
     let name = e.target.name;
@@ -31,13 +33,18 @@ const Login = () => {
         },
         body: JSON.stringify(user),
       });
+      const responseData = await response.json();
+      console.log("response data : ", responseData);
 
       if (response.ok) {
-        const responseData = await response.json();
-        console.log("after login: ", responseData);
+        storeTokenInLs(responseData.token);
+        
+       
         // toast.success("Registration Successful");
-        // saveTokenInLocalStr(responseData.token);
-        navigate("/");
+        setUser({email:"",password:""});
+        alert("Login Successfull")
+         navigate("/");
+       
       }
     } catch (error) {
       console.log(error);

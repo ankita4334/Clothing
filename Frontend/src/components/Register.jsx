@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../store/auth";
 
 
 const Register = () => {
@@ -11,6 +12,7 @@ const Register = () => {
   });
 
   const navigate=useNavigate();
+  const {storeTokenInLs}=useAuth();
 
   const handleInput = (e) => {
     let name = e.target.name;
@@ -35,10 +37,12 @@ const Register = () => {
         },
         body: JSON.stringify(user),
       });
-      console.log("response data : ", response);
+      const responseData = await response.json();
+      console.log("response data : ", responseData);
 
       if (response.ok) {
-        const responseData = await response.json();
+        storeTokenInLs(responseData.token);
+       
         alert("registration successful");
         setUser({ username: "", email: "", password: "" });
         console.log(responseData);

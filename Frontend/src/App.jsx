@@ -11,6 +11,7 @@ import Footer from "./components/Footer";
 import Hero from "./components/Hero";
 import Categories from "./components/Categories";
 import AboutUs from "./components/AboutUs";
+import Logout from "./components/Logout";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/logout" element={<Logout />} />
         <Route path="/shop" element={<Shop />} />
         <Route path="/itemhome" element={<ItemHome />} />
         <Route path="/contact" element={<Contactus />} />

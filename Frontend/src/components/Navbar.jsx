@@ -1,11 +1,14 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useAuth } from "../store/auth";
 
 const Navbar = () => {
+  const { isLoggedIn,user } = useAuth();
+
   return (
     <>
       <div className="navbar bg-base-100 sticky top-0 z-10 bg-white shadow-md px-6">
-        {/* Left side - Brand and Navigation Links */}
+        {/* Left Side - Brand and Navigation Links */}
         <div className="flex-1 flex space-x-6">
           <Link to="/" className="btn btn-ghost mt-3 text-4xl" style={{ fontFamily: "Courgette" }}>
             Bliss
@@ -32,7 +35,7 @@ const Navbar = () => {
           </div>
         </div>
 
-        {/* Right side - Cart and Profile */}
+        {/* Right Side - Cart and Profile */}
         <div className="flex-none ml-2 flex space-x-3">
           {/* Cart */}
           <div className="dropdown dropdown-end">
@@ -55,24 +58,34 @@ const Navbar = () => {
             </div>
           </div>
 
-          {/* Profile */}
-          <div className="dropdown dropdown-end">
-            <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
-              <div className="w-14 rounded-full">
-                <img alt="Profile" src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
+          {/* Profile Section */}
+          {isLoggedIn ? (
+            <div className="dropdown dropdown-end">
+              <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
+                <div className="w-14 rounded-full">
+                  <img alt="Profile" src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
+                </div>
               </div>
+              <ul tabIndex={0} className="menu menu-sm dropdown-content bg-base-100 rounded-box z-10 mt-3 w-64 p-4 shadow">
+             <b> <li className="dropdown-item disabled" style={{ color: "black", paddingLeft:"10px" }}>
+                  Welcome, {user ? user.username : "Guest"}
+                </li></b>
+                <li><Link to="/logout">Logout</Link></li>
+              </ul>
             </div>
-            <ul tabIndex={0} className="menu menu-sm dropdown-content bg-base-100 rounded-box z-10 mt-3 w-64 p-4 shadow">
-              <li>
-                <Link to="/login" className="justify-between">
-                  Profile
-                  <Link to="/register" className="badge">New</Link>
-                </Link>
-              </li>
-              <li><Link to="/settings">Settings</Link></li>
-              <li><Link to="/login">Logout</Link></li>
-            </ul>
-          </div>
+          ) : (
+            <div className="dropdown dropdown-end">
+              <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
+                <div className="w-14 rounded-full">
+                  <img alt="Profile" src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
+                </div>
+              </div>
+              <ul tabIndex={0} className="menu menu-sm dropdown-content bg-base-100 rounded-box z-10 mt-3 w-64 p-4 shadow">
+                <li><Link to="/login">Login</Link></li>
+                <li><Link to="/register" className="badge">Register</Link></li>
+              </ul>
+            </div>
+          )}
         </div>
       </div>
     </>
