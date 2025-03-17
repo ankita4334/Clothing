@@ -1,11 +1,24 @@
+import { useEffect, useRef } from "react";
 import { useAuth } from "../store/auth";
 import { FaShoppingCart } from "react-icons/fa"; // Import cart icon
 
 export const Fashion = () => {
   const { fashion } = useAuth();
+  const audioRef = useRef(null);
+
+  useEffect(() => {
+    if (audioRef.current) {
+      audioRef.current.play().catch((error) => console.log("Autoplay blocked:", error));
+    }
+  }, []); // Runs only once when the component mounts
 
   return (
     <>
+      {/* Hidden Audio Element */}
+      <audio ref={audioRef} loop>
+        <source src="/apt.mp3" type="audio/mpeg" />
+      </audio>
+
       <h2 className="text-center text-3xl font-bold my-6">Fashion</h2>
       <hr className="mb-6" />
 
