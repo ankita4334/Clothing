@@ -1,0 +1,32 @@
+[
+  {
+    "name": "Casual T-Shirt",
+    "image": "https://example.com/images/tshirt.jpg",
+    "price": "20 USD"
+  },
+  {
+    "name": "Denim Jeans",
+    "image": "https://example.com/images/jeans.jpg",
+    "price": "40 USD"
+  },
+  {
+    "name": "Leather Jacket",
+    "image": "https://example.com/images/leather-jacket.jpg",
+    "price": "120 USD"
+  },
+  {
+    "name": "Floral Dress",
+    "image": "https://example.com/images/floral-dress.jpg",
+    "price": "60 USD"
+  },
+  {
+    "name": "Sneakers",
+    "image": "https://example.com/images/sneakers.jpg",
+    "price": "80 USD"
+  },
+  {
+    "name": "Hoodie",
+    "image": "https://example.com/images/hoodie.jpg",
+    "price": "50 USD"
+  }
+]

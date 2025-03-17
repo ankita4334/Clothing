@@ -1,69 +1,60 @@
-import React from "react";
-import { FaStar, FaShoppingCart, FaHeart } from "react-icons/fa";
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import { Link } from 'react-router-dom';
 
-const Shop = () => {
-  // Dummy Clothing Data (Virtual Try-On Compatible)
-  const clothes = [
-    { id: 1, name: "Casual T-Shirt", image: "image/tshirt.jpeg", price: "₹300" },
-    { id: 2, name: "Denim Jacket", image: "/image/djacket.jpeg", price: "₹450" },
-    { id: 3, name: "Summer Dress", image: "/image/summer.jpeg", price: "₹350" },
-    { id: 4, name: "Hoodie", image: "/image/hoodie.jpeg", price: "₹500" },
-    { id: 5, name: "Formal Suit", image: "/image/suit.jpeg", price: "₹1800" },
-    { id: 6, name: "Joggers", image: "/image/jogger.jpeg", price: "₹300" },
-  ];
+export const Shop = () => {
+  const [fashion, setFashion] = useState([]);
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:3000/fashion")
+      .then((res) => {
+        console.log(res.data);
+        setFashion(res.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
 
   return (
-    <section className="container mx-auto p-6">
-      <h2 className="text-4xl font-bold text-center mb-8">Virtual Try-On Shop</h2>
-      
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-        {clothes.map((item) => (
-          <div key={item.id} className="card bg-white shadow-md rounded-lg p-4 hover:shadow-lg transition duration-300 w-80">
-            {/* Product Image */}
-            <div className="relative">
-              <img
-                src={item.image}
-                alt={item.name}
-                className="w-full h-56 object-cover rounded-lg"
-              />
-              <span className="absolute top-2 left-2 px-3 py-1 text-xs font-semibold rounded-lg bg-green-500 text-white">
-                In Stock
-              </span>
-            </div>
+    <>
+      <h2 className="text-center text-3xl font-bold my-8">Fashion</h2>
+      <hr className="mb-8 border-gray-300" />
 
-            {/* Product Details */}
-            <div className="mt-3">
-              <h3 className="text-lg font-semibold">{item.name}</h3>
-              <p className="text-gray-500 text-sm">Clothing</p>
+      <div className="container mx-auto px-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+          {fashion.length > 0 ? (
+            fashion.map((val, index) => (
+              <div
+                key={index}
+                className="bg-white shadow-xl rounded-lg overflow-hidden transform hover:scale-105 transition duration-300"
+              >
+                {/* Bigger Image */}
+                <img
+                  src={val.image}
+                  alt={val.name}
+                  className="w-full h-92 object-cover"
+                />
 
-              {/* Ratings */}
-              <div className="flex items-center text-yellow-400 mt-1">
-                {[...Array(5)].map((_, i) => (
-                  <FaStar key={i} className="fill-current" />
-                ))}
-                <span className="ml-2 text-gray-600">(120 reviews)</span>
+                {/* Bigger Card Body */}
+                <div className="p-6">
+                  <h5 className="text-xl font-semibold">{val.name}</h5>
+                  <p className="text-gray-700 text-lg mt-2">Price: ${val.price}</p>
+
+                  {/* Button with Better Styling */}
+                  <Link className="btn btn-neutral rounded-lg px-6 py-3 text-lg font-semibold hover:bg-gray-900 hover:scale-105 transition" to={"/shop"}>
+                    Shop Now
+                  </Link>
+                </div>
               </div>
-
-              {/* Add to cart */}
-              <div className="flex justify-between items-center mt-3">
-                <span className="text-xl font-bold text-gray-900">{item.price}</span>
-                <FaShoppingCart className="mr-2" /> 
-              </div>
-
-              {/* Actions */}
-              <div className="flex justify-between items-center mt-3">
-                <button className="btn bg-gray-800 text-white flex items-center px-4 py-2 rounded-lg hover:bg-gray-900">
-                  Shop Now
-                </button>
-                <button className="text-gray-600 hover:text-red-500 transition">
-                  <FaHeart size={24} />
-                </button>
-              </div>
-            </div>
-          </div>
-        ))}
+            ))
+          ) : (
+            <p className="text-center text-gray-500 w-full">No items available at the moment.</p>
+          )}
+        </div>
       </div>
-    </section>
+    </>
   );
 };
 

@@ -5,6 +5,7 @@ import dotenv from "dotenv";
 import cors from "cors"
 import errorMiddleware from "./middleware/error-middleware.js";
 import contactrouter from "./router/contact-router.js"
+import fashionrouter from "./router/fashion-router.js";
 
 dotenv.config();
 const app=express();
@@ -20,6 +21,7 @@ app.use(express.json());
 
 app.use(router);
 app.use(contactrouter);
+app.use(fashionrouter);
 app.use(errorMiddleware)
 
 connectDb().then(()=>{
