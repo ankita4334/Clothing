@@ -21,7 +21,7 @@ const AboutHome = () => {
       </p>
     </div>
     <div className="about-image">
-      <Lottie animationData={anim1} loop={true} style={{width:"500px"}}/>
+      <Lottie animationData={anim1} loop={true} style={{width:"500px",marginLeft:"100px"}}/>
     </div>
   </div>
 </div>

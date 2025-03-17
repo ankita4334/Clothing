@@ -2,58 +2,37 @@ import React from "react";
 
 const AboutUs = () => {
   return (
-    <div className="bg-gray-100 py-16 px-6 md:px-20">
-      {/* Header Section */}
-      <div className="text-center mb-12">
-        <h2 className="text-4xl font-extrabold text-gray-800">About Us</h2>
-        <p className="text-lg text-gray-600 mt-2">
-          Discover our journey and what makes us unique.
-        </p>
-      </div>
-
-      {/* Company Info */}
-      <div className="max-w-5xl mx-auto bg-white p-8 shadow-lg rounded-lg">
-        <h3 className="text-3xl font-semibold text-gray-800">Who We Are</h3>
-        <p className="text-gray-600 mt-4 leading-relaxed">
-          At <strong>AVATAR</strong>, we are committed to providing the latest trends in fashion with
-          a perfect blend of quality and affordability. Our journey began with a vision to
-          redefine fashion and make it accessible to everyone.
-        </p>
-      </div>
-
-      {/* Mission & Vision Section */}
-      <div className="mt-12 grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-        <div className="bg-white p-6 shadow-md rounded-lg">
-          <h3 className="text-2xl font-semibold text-gray-800">Our Mission</h3>
-          <p className="text-gray-600 mt-2">
-            To inspire confidence and self-expression through high-quality, stylish, and affordable fashion.
+    <section className="max-w-6xl mx-auto px-4 py-12 mt-5">
+      <div className="flex flex-col md:flex-row gap-8">
+        <div className="md:w-1/2 space-y-6">
+          <h1 className="text-4xl md:text-5xl font-bold text-black mt-9">About Our Creative Studio</h1>
+          <p className="text-sm text-gray-600 leading-relaxed">
+            At Lumina Designs, we blend innovation with craftsmanship to create extraordinary digital experiences. 
+            Founded in 2015, our team of passionate designers and developers has been transforming ideas into 
+            impactful visual solutions for clients across 15+ countries. We specialize in UI/UX design, brand 
+            identity, and interactive web experiences that captivate audiences and drive results.
           </p>
+          <a href="/shop"><button className="text-blue-600 hover:underline font-semibold">
+            EXPLORE OUR WORK →
+          </button></a>
         </div>
-
-        <div className="bg-white p-6 shadow-md rounded-lg">
-          <h3 className="text-2xl font-semibold text-gray-800">Our Vision</h3>
-          <p className="text-gray-600 mt-2">
-            To become a global leader in the fashion industry, setting trends and making fashion accessible to all.
-          </p>
+        <div className="md:w-1/2 relative">
+          <div className="absolute ml-60 mb-10 w-72 h-56 bg-blue-950 shadow-lg z-10 ">
+          </div>
+          <div className="relative z-20">
+            <img
+              src="image/l6.jpg"
+              alt="Creative Studio"
+              className="w-80 h-110 mt-10 ml-40"
+            />
+          </div>
+          <div className="absolute bottom-[-40px] left-[calc(30%-10rem)] w-190 h-48 bg-orange-200 shadow-lg p-6 z-10  flex items-center justify-center ">
+          </div>
         </div>
       </div>
-
-      {/* Virtual Try-On Section */}
-      <div className="mt-12 max-w-5xl mx-auto bg-white p-8 shadow-lg rounded-lg">
-        <h3 className="text-3xl font-semibold text-gray-800 text-center">Virtual Try-On</h3>
-        <p className="text-gray-600 mt-4 leading-relaxed">
-          Experience the future of shopping with our innovative <strong>Virtual Try-On</strong> feature. Using advanced
-          AI and augmented reality, you can try on clothes virtually before making a purchase. Whether it's casual wear,
-          formal attire, or accessories, our technology helps you find the perfect fit.
-        </p>
-        <p className="text-gray-600 mt-4 leading-relaxed">
-          Additionally, our <strong>Avatar Integration</strong> allows you to create a digital version of yourself,
-          customize your look, and see how different outfits will appear on you in real time. Say goodbye to guesswork
-          and shop with confidence!
-        </p>
-      </div>
-    </div>
+    </section>
   );
 };
+
 
 export default AboutUs;
