@@ -1,16 +1,26 @@
 import { useEffect, useRef } from "react";
 import { useAuth } from "../store/auth";
-import { FaShoppingCart } from "react-icons/fa"; // Import cart icon
+import { FaShoppingCart, FaRegHeart } from "react-icons/fa"; 
+import { useNavigate } from "react-router-dom";
 
-export const Fashion = () => {
-  const { fashion } = useAuth();
+export const Shop = () => {
+
+const {fashion}=useAuth();
   const audioRef = useRef(null);
+  const navigate = useNavigate();
+
 
   useEffect(() => {
     if (audioRef.current) {
-      audioRef.current.play().catch((error) => console.log("Autoplay blocked:", error));
+      audioRef.current.play().catch((error) =>
+        console.log("Autoplay blocked:", error)
+      );
     }
-  }, []); // Runs only once when the component mounts
+
+  }, []); 
+
+
+
 
   return (
     <>
@@ -29,20 +39,21 @@ export const Fashion = () => {
               <div
                 key={index}
                 className="bg-white shadow-lg rounded-lg overflow-hidden hover:scale-105 transition transform duration-300 relative"
-                style={{ height: "420px" }} // Increased card height
+                style={{ height: "500px" }} // Increased card height
               >
-                {/* Add to Cart Icon at Top Right */}
-                <div className="absolute top-3 right-3 bg-gray-200 p-2 rounded-full cursor-pointer hover:bg-gray-300 transition">
-                  <FaShoppingCart className="text-gray-700 text-lg" />
+                {/* Icons Container */}
+                <div className="absolute top-3 right-3 flex gap-2">
+                  {/* Wishlist Icon (Black Outline Heart) */}
+                  <div className="bg-gray-200 p-2 rounded-full cursor-pointer hover:bg-gray-300 transition">
+                    <FaRegHeart className="text-black text-lg" />
+                  </div>
+
+                  
                 </div>
 
                 {/* Image */}
-                <div className="h-72">
-                  <img
-                    src={val.image}
-                    alt={val.name}
-                    className="w-full h-full object-cover"
-                  />
+                <div className="h-92 cursor-pointer" onClick={() => navigate(`/product/${index}`)}>
+                  <img src={val.image} alt={val.name} className="w-full h-full object-cover" />
                 </div>
 
                 {/* Card Body */}
@@ -51,13 +62,7 @@ export const Fashion = () => {
                   <p className="text-gray-700 text-sm">Price: ${val.price}</p>
 
                   {/* Tailwind Button */}
-                  <a
-                    href={val.link}
-                    target="_blank"
-                    className="mt-3 inline-block bg-black text-white px-6 py-2 rounded-lg hover:bg-gray-800 transition"
-                  >
-                    Shop Now
-                  </a>
+                 
                 </div>
               </div>
             ))
@@ -72,4 +77,4 @@ export const Fashion = () => {
   );
 };
 
-export default Fashion;
+export default Shop;
