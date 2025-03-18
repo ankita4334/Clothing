@@ -1,48 +1,72 @@
-[{
-  "_id": {
-    "$oid": "67d85accdd1b44467f54dde2"
+[
+  {
+    "name": "Men's Casual Shirt",
+    "image": "https://example.com/images/men-casual-shirt.jpg",
+    "price": "29.99",
+    "category": "men",
+    "subcategory": "top"
   },
-  "name": "Casual T-Shirt",
-  "image": "https://i.pinimg.com/236x/c0/b6/7d/c0b67da30a570b9dfb979a6e6b0f92ad.jpg",
-  "price": "20 USD"
-},
-{
-  "_id": {
-    "$oid": "67d85accdd1b44467f54dde3"
+  {
+    "name": "Women's Elegant Blouse",
+    "image": "https://example.com/images/women-elegant-blouse.jpg",
+    "price": "49.99",
+    "category": "women",
+    "subcategory": "top"
   },
-  "name": "Denim Jeans",
-  "image": "https://i.pinimg.com/236x/c0/b6/7d/c0b67da30a570b9dfb979a6e6b0f92ad.jpg",
-  "price": "40 USD"
-},
-{
-  "_id": {
-    "$oid": "67d85accdd1b44467f54dde4"
+  {
+    "name": "Kid's Hoodie",
+    "image": "https://example.com/images/kid-hoodie.jpg",
+    "price": "19.99",
+    "category": "kid",
+    "subcategory": "outwear"
   },
-  "name": "Leather Jacket",
-  "image": "https://i.pinimg.com/236x/c0/b6/7d/c0b67da30a570b9dfb979a6e6b0f92ad.jpg",
-  "price": "120 USD"
-},
-{
-  "_id": {
-    "$oid": "67d85accdd1b44467f54dde5"
+  {
+    "name": "Sporty Jogging Pants",
+    "image": "https://example.com/images/sporty-jogging-pants.jpg",
+    "price": "34.99",
+    "category": "sport",
+    "subcategory": "bottom"
   },
-  "name": "Floral Dress",
-  "image": "https://i.pinimg.com/236x/c0/b6/7d/c0b67da30a570b9dfb979a6e6b0f92ad.jpg",
-  "price": "60 USD"
-},
-{
-  "_id": {
-    "$oid": "67d85accdd1b44467f54dde6"
+  {
+    "name": "Men's Casual T-Shirt",
+    "image": "https://example.com/images/men-casual-tshirt.jpg",
+    "price": "15.99",
+    "category": "men",
+    "subcategory": "tshirt"
   },
-  "name": "Sneakers",
-  "image": "https://i.pinimg.com/236x/c0/b6/7d/c0b67da30a570b9dfb979a6e6b0f92ad.jpg",
-  "price": "80 USD"
-},
-{
-  "_id": {
-    "$oid": "67d85accdd1b44467f54dde7"
+  {
+    "name": "Women's Stylish Skirt",
+    "image": "https://example.com/images/women-stylish-skirt.jpg",
+    "price": "24.99",
+    "category": "women",
+    "subcategory": "bottom"
   },
-  "name": "Hoodie",
-  "image": "https://i.pinimg.com/236x/c0/b6/7d/c0b67da30a570b9dfb979a6e6b0f92ad.jpg",
-  "price": "50 USD"
-}]
+  {
+    "name": "Kid's Summer Shorts",
+    "image": "https://example.com/images/kid-summer-shorts.jpg",
+    "price": "14.99",
+    "category": "kid",
+    "subcategory": "short"
+  },
+  {
+    "name": "Sporty Running Shoes",
+    "image": "https://example.com/images/sporty-running-shoes.jpg",
+    "price": "59.99",
+    "category": "sport",
+    "subcategory": "bottom"
+  },
+  {
+    "name": "Men's Winter Jacket",
+    "image": "https://example.com/images/men-winter-jacket.jpg",
+    "price": "99.99",
+    "category": "men",
+    "subcategory": "outwear"
+  },
+  {
+    "name": "Women's Innerwear Bra",
+    "image": "https://example.com/images/women-innerwear-bra.jpg",
+    "price": "19.99",
+    "category": "women",
+    "subcategory": "innerwear"
+  }
+]

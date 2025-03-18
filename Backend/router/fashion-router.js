@@ -1,7 +1,10 @@
 import express from "express"
-import fashion from "../controller/fashion-controller.js";
-const fashionrouter=express.Router();
+import {fashion} from "../controller/fashion-controller.js"
+import { getFashionById } from "../controller/fashion-controller.js";
 
-fashionrouter.route("/fashion").get(fashion);
+const router=express.Router();
 
-export default fashionrouter;
+router.route("/fashion").get(fashion);
+router.route("/fashion/:id").get(getFashionById);
+
+export default router;

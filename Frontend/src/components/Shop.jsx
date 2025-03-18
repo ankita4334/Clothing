@@ -1,20 +1,44 @@
-import { useEffect, useRef } from "react";
-import { useAuth } from "../store/auth";
-import { FaShoppingCart } from "react-icons/fa"; // Import cart icon
+import { useEffect, useState, useRef } from "react";
+import { FaShoppingCart } from "react-icons/fa";
+import { useSearchParams } from "react-router-dom";
 
 export const Fashion = () => {
-  const { fashion } = useAuth();
+  const [searchParams] = useSearchParams();
+  const [filters, setFilters] = useState({
+    category: searchParams.get("category") || "",
+    subCategory: ""
+  });
+  const [products, setProducts] = useState([]);
   const audioRef = useRef(null);
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const params = new URLSearchParams(filters);
+        const response = await fetch(`http://localhost:3000/fashion/${params}`);
+        
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        
+        const data = await response.json();
+        setProducts(data);
+      } catch (error) {
+        console.error("Error fetching products:", error);
+      }
+    };
+    
+    fetchProducts();
+  }, [filters]);
 
   useEffect(() => {
     if (audioRef.current) {
       audioRef.current.play().catch((error) => console.log("Autoplay blocked:", error));
     }
-  }, []); // Runs only once when the component mounts
+  }, []);
 
   return (
     <>
-      {/* Hidden Audio Element */}
       <audio ref={audioRef} loop>
         <source src="/apt.mp3" type="audio/mpeg" />
       </audio>
@@ -23,37 +47,60 @@ export const Fashion = () => {
       <hr className="mb-6" />
 
       <div className="container mx-auto px-4">
+        {/* Filter Controls */}
+        <div className="flex gap-4 mb-8">
+          <select 
+            onChange={(e) => setFilters({...filters, category: e.target.value})}
+            className="p-2 border rounded"
+            value={filters.category}
+          >
+            <option value="">All Categories</option>
+            <option value="men">Men</option>
+            <option value="women">Women</option>
+            <option value="kids">Kids</option>
+            <option value="sport">Sport</option>
+          </select>
+
+          <select
+            onChange={(e) => setFilters({...filters, subCategory: e.target.value})}
+            className="p-2 border rounded"
+            value={filters.subCategory}
+          >
+            <option value="">All Types</option>
+            <option value="tops">Tops</option>
+            <option value="pants">Pants</option>
+            <option value="innerwear">Innerwear</option>
+            <option value="footwear">Footwear</option>
+          </select>
+        </div>
+
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-          {fashion && fashion.length > 0 ? (
-            fashion.map((val, index) => (
+          {products.length > 0 ? (
+            products.map((product) => (
               <div
-                key={index}
+                key={product.id}
                 className="bg-white shadow-lg rounded-lg overflow-hidden hover:scale-105 transition transform duration-300 relative"
-                style={{ height: "420px" }} // Increased card height
+                style={{ height: "420px" }}
               >
-                {/* Add to Cart Icon at Top Right */}
                 <div className="absolute top-3 right-3 bg-gray-200 p-2 rounded-full cursor-pointer hover:bg-gray-300 transition">
                   <FaShoppingCart className="text-gray-700 text-lg" />
                 </div>
 
-                {/* Image */}
                 <div className="h-72">
                   <img
-                    src={val.image}
-                    alt={val.name}
+                    src={product.image}
+                    alt={product.name}
                     className="w-full h-full object-cover"
                   />
                 </div>
 
-                {/* Card Body */}
                 <div className="p-4 text-center flex flex-col justify-between h-28">
-                  <h5 className="text-lg font-semibold">{val.name}</h5>
-                  <p className="text-gray-700 text-sm">Price: ${val.price}</p>
-
-                  {/* Tailwind Button */}
+                  <h5 className="text-lg font-semibold">{product.name}</h5>
+                  <p className="text-gray-700 text-sm">Price: ${product.price}</p>
                   <a
-                    href={val.link}
+                    href={product.link}
                     target="_blank"
+                    rel="noopener noreferrer"
                     className="mt-3 inline-block bg-black text-white px-6 py-2 rounded-lg hover:bg-gray-800 transition"
                   >
                     Shop Now
@@ -63,7 +110,7 @@ export const Fashion = () => {
             ))
           ) : (
             <p className="text-center text-gray-500 w-full">
-              No fashion items available at the moment.
+              No fashion items available for the selected filters.
             </p>
           )}
         </div>

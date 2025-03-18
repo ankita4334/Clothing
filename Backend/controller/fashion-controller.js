@@ -1,20 +1,34 @@
 import Fashion from "../models/fashion-model.js";
 
-const fashion=async(req,res)=>{
-    try 
-    {
-
-        const response=await Fashion.find();
-        res.status(200).json({message:response});
+export const fashion=async(req,res)=>{
+    try {
+        const { category, subCategory } = req.query;
+        const filter = {};
         
-        if(!response)
-        {
-            res.status(400).json({message:"No service found"});
-        }
+        if (category) filter.category = category.toLowerCase();
+        if (subCategory) filter.subCategory = subCategory.toLowerCase();
+    
+        const products = await Fashion.find(filter);
+        
+        res.status(200).json(products);
+        
+      } catch (error) {
+        res.status(500).json({ message: "Server error", error: error.message });
+      }
+}
 
+export const getFashionById=async(req,res)=>{
+    try {
+        const fashion=await Fashion.findById(req.params.id);
+        if(!fashion)
+        {
+            return res.status(404).json({message:"Product not found"});
+        }
+        res.status(200).json({ data: fashion });
     } catch (error) {
-        res.status(400).json({message:"error"});
+        console.error(error);
+      res.status(500).json({ error: "Server error" });
     }
 }
 
-export default fashion;
+export default {fashion,getFashionById};

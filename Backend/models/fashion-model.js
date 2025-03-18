@@ -16,6 +16,22 @@ const fashionSchema=new mongoose.Schema({
     type:String,
     require:true
   },
+  
+  category:{
+    type:String,
+    required:true,
+    enum: ["men", "women", "kid", "sport"], 
+    default: "other"
+  
+  },
+
+  subcategory:{
+    type:String,
+    required:true,
+    enum: ["top", "bottom", "tshirt", "outwear","innerwear","short"], 
+    default: "other"
+  
+  },
 
   
 
