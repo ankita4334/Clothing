@@ -14,6 +14,7 @@ import AboutUs from "./components/AboutUs";
 import Logout from "./components/Logout";
 import ProtectedRoutes from "./utils/ProtectedRoutes";
 import Pslider from "./components/Pslider";
+import Product from "./components/Product";
 
 function App() {
   return (
@@ -35,6 +36,7 @@ function App() {
         <Route path="/categories" element={<Categories/>} />
         <Route path="/about" element={<AboutUs/>} />
         <Route path="/pslider" element={<Pslider/>} />
+        <Route path="/product/:id" element={<Product/>}/>
        
         </Route>
       </Routes>

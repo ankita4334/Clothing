@@ -6,6 +6,7 @@ export const AuthProvider = ({ children }) => {
   const [token, setToken] = useState(() => localStorage.getItem("token") || null);
   const [user, setUser] = useState(() => JSON.parse(localStorage.getItem("user")) || null);
   const[fashion,setFashion]=useState([]);
+ 
   
   // Store token and user in localStorage
   const storeTokenInLs = (serverToken) => {
@@ -67,12 +68,15 @@ export const AuthProvider = ({ children }) => {
     
     }
 
+  
+
   // Fetch user data when token changes
   useEffect(() => {
     if (token) {
      
       userAuthentication();
       getFashion();
+    
     }
   }, [token]);
 
