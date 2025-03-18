@@ -1,7 +1,10 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 
 const Categories = () => {
+  const [searchParams] = useSearchParams();
+  const subcategory = searchParams.get("subcategory");
+
   const categories = [
     { name: "Men's Fashion", img: "image/j6.jpg", category: "men" },
     { name: "Women's Fashion", img: "image/j7.jpg", category: "women" },
@@ -10,15 +13,17 @@ const Categories = () => {
   ];
 
   return (
-    <div className="py-16 px-6 md:px-20 ">
+    <div className="py-16 px-6 md:px-20">
       <h2 className="text-4xl font-extrabold text-gray-800 text-center mb-10">
-        Explore Categories
+        {subcategory ? `Select Category for ${subcategory}` : "Explore Categories"}
       </h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
         {categories.map((category, index) => (
           <Link 
             key={index} 
-            to={`/shop?category=${category.category}`}
+            to={subcategory 
+              ? `/shop?category=${category.category}&subcategory=${subcategory}`
+              : `/shop?category=${category.category}`}
             className="no-underline"
           >
             <div className="card bg-white shadow-lg rounded-lg overflow-hidden transition-all transform hover:scale-105 hover:shadow-2xl hover:translate-y-2">
@@ -34,7 +39,9 @@ const Categories = () => {
                 <h3 className="text-2xl font-semibold text-gray-800 transition-colors duration-300 hover:text-indigo-500">
                   {category.name}
                 </h3>
-                <p className="text-gray-500 text-sm mt-2">Click to explore</p>
+                <p className="text-gray-500 text-sm mt-2">
+                  {subcategory ? `View ${category.category} ${subcategory}` : "Click to explore"}
+                </p>
               </div>
             </div>
           </Link>
