@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import { useAuth } from "../store/auth"; // Import useAuth
 
 const Product = () => {
   const { id } = useParams();
@@ -9,6 +10,7 @@ const Product = () => {
   const [quantity, setQuantity] = useState(1);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const { updateCartCount } = useAuth(); // Get updateCartCount from context
 
   const sizePriceMultiplier = {
     24: 1.0,
@@ -72,6 +74,10 @@ const Product = () => {
     let cart = JSON.parse(localStorage.getItem("cart")) || [];
     cart.push(cartItem);
     localStorage.setItem("cart", JSON.stringify(cart));
+
+    // Update cart count in global state
+    updateCartCount(cart.length);
+
     navigate("/cart");
   };
 
@@ -112,8 +118,9 @@ const Product = () => {
                 <button
                   key={size}
                   onClick={() => setSelectedSize(size)}
-                  className={`p-3 border rounded-lg text-center ${selectedSize === size ? "bg-black text-white" : "hover:bg-gray-100"
-                    }`}
+                  className={`p-3 border rounded-lg text-center ${
+                    selectedSize === size ? "bg-black text-white" : "hover:bg-gray-100"
+                  }`}
                 >
                   {size}
                   {sizePriceMultiplier[size] > 1 && (
@@ -165,28 +172,25 @@ const Product = () => {
               {selectedSize ? `Add ${quantity} to Cart - ₹${calculatePrice()}` : "Select Size"}
             </button>
             <button
-  onClick={() =>
-    navigate("/prodsummary", {
-      state: {
-        product: {
-          id: product.id,  
-          name: product.name,
-          price: calculatePrice(),
-        },
-        quantity: quantity,
-        totalPrice: calculatePrice(),
-      },
-    })
-  }
-  className="border-2 border-black px-8 py-4 rounded-lg w-full hover:bg-gray-50 disabled:opacity-50"
-  disabled={!selectedSize}
->
-  Buy Now
-</button>
-
+              onClick={() =>
+                navigate("/prodsummary", {
+                  state: {
+                    product: {
+                      id: product.id,  
+                      name: product.name,
+                      price: calculatePrice(),
+                    },
+                    quantity: quantity,
+                    totalPrice: calculatePrice(),
+                  },
+                })
+              }
+              className="border-2 border-black px-8 py-4 rounded-lg w-full hover:bg-gray-50 disabled:opacity-50"
+              disabled={!selectedSize}
+            >
+              Buy Now
+            </button>
           </div>
-
-
         </div>
       </div>
     </div>

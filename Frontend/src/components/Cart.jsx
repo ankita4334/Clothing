@@ -1,27 +1,33 @@
 import React, { useState, useEffect } from "react";
+import { useAuth } from "../store/auth"; // Import useAuth
 
 const Cart = () => {
   const [cart, setCart] = useState([]);
   const [total, setTotal] = useState(0);
+  const { updateCartCount } = useAuth(); // Get updateCartCount from context
 
+  // Load cart from localStorage on component mount
   useEffect(() => {
     const storedCart = JSON.parse(localStorage.getItem("cart")) || [];
     setCart(storedCart);
-
-    // Calculate total price
-    const totalPrice = storedCart.reduce((acc, item) => acc + item.price * item.quantity, 0);
-    setTotal(totalPrice);
+    calculateTotal(storedCart);
   }, []);
 
-  const removeFromCart = (index) => {
-    const updatedCart = [...cart];
-    updatedCart.splice(index, 1);
-    setCart(updatedCart);
-    localStorage.setItem("cart", JSON.stringify(updatedCart));
-
-    // Recalculate total
-    const totalPrice = updatedCart.reduce((acc, item) => acc + item.price * item.quantity, 0);
+  // Calculate total price
+  const calculateTotal = (cartItems) => {
+    const totalPrice = cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0);
     setTotal(totalPrice);
+  };
+
+  // Handle delete item from cart
+  const handleDeleteItem = (index) => {
+    const updatedCart = cart.filter((_, i) => i !== index); // Remove the item at the specified index
+    setCart(updatedCart); // Update state
+    localStorage.setItem("cart", JSON.stringify(updatedCart)); // Update localStorage
+    calculateTotal(updatedCart); // Recalculate total
+
+    // Update cart count in global state
+    updateCartCount(updatedCart.length);
   };
 
   return (
@@ -36,19 +42,15 @@ const Cart = () => {
               <img src={item.image} alt={item.name} className="w-24 h-24 rounded-lg border" />
               <div className="flex-1">
                 <h2 className="text-xl font-semibold">{item.name}</h2>
-                <p className="text-gray-600">
-                  Size: <span className="font-medium">{item.sizes?.join(", ") || "N/A"}</span>
-                </p>
-                <p className="text-gray-600">
-                  Quantity: <span className="font-medium">{item.quantity}</span>
-                </p>
+                <p className="text-gray-600">Size: <span className="font-medium">{item.size}</span></p>
+                <p className="text-gray-600">Quantity: <span className="font-medium">{item.quantity}</span></p>
                 <p className="text-gray-800 font-semibold">Price: ₹{item.price}</p>
               </div>
               <button
-  onClick={() => removeFromCart(index)}
-  className="bg-black text-white px-4 py-2 rounded-lg hover:bg-pink-900 transition duration-300"
+  onClick={() => handleDeleteItem(index)}
+  className="px-4 py-2 bg-black text-white rounded-lg hover:bg-gray-800 transition duration-300"
 >
-  Remove
+  Delete
 </button>
 
             </div>
