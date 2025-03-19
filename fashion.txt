@@ -1,32 +1,162 @@
 [
   {
-    "name": "Casual T-Shirt",
-    "image": "https://example.com/images/tshirt.jpg",
-    "price": "20 USD"
+    "name": "Men's Striped Cotton T-Shirt",
+    "image": "/images/men-tshirt.jpg",
+    "price": 24.99,
+    "category": "men",
+    "subcategory": "tshirt",
+    "fabric": "100% Cotton",
+    "pattern": "Striped",
+    "netQuantity": 1,
+    "features": {
+      "comfort": "Regular fit",
+      "material": "Soft breathable cotton",
+      "waistband": "Ribbed crew neck",
+      "additional": [
+        "Machine washable",
+        "Anti-shrink"
+      ]
+    },
+    "sizes": [38, 40, 42, 44]
   },
   {
-    "name": "Denim Jeans",
-    "image": "https://example.com/images/jeans.jpg",
-    "price": "40 USD"
+    "name": "Men's Slim Fit Chinos",
+    "image": "/images/men-chinos.jpg",
+    "price": 49.99,
+    "category": "men",
+    "subcategory": "bottom",
+    "fabric": "Cotton Twill",
+    "pattern": "Solid",
+    "netQuantity": 1,
+    "features": {
+      "comfort": "Slim fit",
+      "material": "98% Cotton, 2% Spandex",
+      "waistband": "Button closure",
+      "additional": [
+        "Wrinkle-resistant",
+        "Two-way stretch"
+      ]
+    },
+    "sizes": [28, 30, 32, 34]
   },
   {
-    "name": "Leather Jacket",
-    "image": "https://example.com/images/leather-jacket.jpg",
-    "price": "120 USD"
+    "name": "Women's Floral Wrap Top",
+    "image": "/images/women-top.jpg",
+    "price": 34.99,
+    "category": "women",
+    "subcategory": "top",
+    "fabric": "Viscose",
+    "pattern": "Floral",
+    "netQuantity": 1,
+    "features": {
+      "comfort": "Flowy fit",
+      "material": "Breathable viscose",
+      "waistband": "Tie-up closure",
+      "additional": [
+        "Machine wash cold",
+        "Semi-sheer"
+      ]
+    },
+    "sizes": [8, 10, 12, 14]
   },
   {
-    "name": "Floral Dress",
-    "image": "https://example.com/images/floral-dress.jpg",
-    "price": "60 USD"
+    "name": "Women's High-Waist Leggings",
+    "image": "/images/women-leggings.jpg",
+    "price": 29.99,
+    "category": "women",
+    "subcategory": "bottom",
+    "fabric": "Nylon-Spandex",
+    "pattern": "Solid",
+    "netQuantity": 1,
+    "features": {
+      "comfort": "High compression",
+      "material": "88% Nylon, 12% Spandex",
+      "waistband": "Wide elastic band",
+      "additional": [
+        "Squat-proof",
+        "Moisture-wicking"
+      ]
+    },
+    "sizes": [26, 28, 30, 32]
   },
   {
-    "name": "Sneakers",
-    "image": "https://example.com/images/sneakers.jpg",
-    "price": "80 USD"
+    "name": "Kids' Dinosaur Print T-Shirt",
+    "image": "/images/kids-tshirt.jpg",
+    "price": 14.99,
+    "category": "kid",
+    "subcategory": "tshirt",
+    "fabric": "Cotton",
+    "pattern": "Dinosaur Print",
+    "netQuantity": 1,
+    "features": {
+      "comfort": "Regular fit",
+      "material": "100% Cotton",
+      "waistband": "Ribbed neckline",
+      "additional": [
+        "Child-safe dyes",
+        "Tagless label"
+      ]
+    },
+    "sizes": [4, 6, 8, 10]
   },
   {
-    "name": "Hoodie",
-    "image": "https://example.com/images/hoodie.jpg",
-    "price": "50 USD"
+    "name": "Kids' Denim Shorts",
+    "image": "/images/kids-shorts.jpg",
+    "price": 19.99,
+    "category": "kid",
+    "subcategory": "short",
+    "fabric": "Denim",
+    "pattern": "Washed",
+    "netQuantity": 1,
+    "features": {
+      "comfort": "Stretch waistband",
+      "material": "98% Cotton, 2% Spandex",
+      "waistband": "Adjustable elastic",
+      "additional": [
+        "Reinforced knees",
+        "Multiple pockets"
+      ]
+    },
+    "sizes": [5, 6, 7, 8]
+  },
+  {
+    "name": "Men's Running Shorts",
+    "image": "/images/sport-shorts.jpg",
+    "price": 39.99,
+    "category": "sport",
+    "subcategory": "short",
+    "fabric": "Polyester",
+    "pattern": "Solid",
+    "netQuantity": 1,
+    "features": {
+      "comfort": "Lightweight",
+      "material": "Quick-dry polyester",
+      "waistband": "Elastic drawstring",
+      "additional": [
+        "Built-in liner",
+        "Reflective details"
+      ]
+    },
+    "sizes": [28, 30, 32, 34]
+  },
+  {
+    "name": "Women's Yoga Tank Top",
+    "image": "/images/sport-top.jpg",
+    "price": 29.99,
+    "category": "sport",
+    "subcategory": "top",
+    "fabric": "Nylon-Spandex",
+    "pattern": "Marbled",
+    "netQuantity": 1,
+    "features": {
+      "comfort": "Four-way stretch",
+      "material": "85% Nylon, 15% Spandex",
+      "waistband": "Slim elastic band",
+      "additional": [
+        "UPF 50+",
+        "Sweat-wicking"
+      ]
+    },
+    "sizes": [6, 8, 10, 12]
   }
 ]

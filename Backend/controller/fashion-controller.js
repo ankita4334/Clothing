@@ -24,7 +24,7 @@ export const getFashionById=async(req,res)=>{
         {
             return res.status(404).json({message:"Product not found"});
         }
-        res.status(200).json({ data: fashion });
+        res.status(200).json(fashion);
     } catch (error) {
         console.error(error);
       res.status(500).json({ error: "Server error" });

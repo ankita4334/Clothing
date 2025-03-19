@@ -2,27 +2,74 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 
 const Product = () => {
-  const { id } = useParams();  // Access the product ID from the URL
+  const { id } = useParams();
   const [product, setProduct] = useState(null);
+  const [selectedSize, setSelectedSize] = useState(null);
+  const [quantity, setQuantity] = useState(1);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  const sizePriceMultiplier = {
+    24: 1.0,
+    26: 1.05,
+    28: 1.1,
+    30: 1.15,
+    32: 1.2,
+    34: 1.25
+  };
 
   useEffect(() => {
-    // Fetch the product data based on the product ID
     const fetchProductData = async () => {
       try {
+        setLoading(true);
         const response = await fetch(`http://localhost:3000/fashion/${id}`);
+        
+        if (response.status === 404) throw new Error('Product not found');
+        if (!response.ok) throw new Error(`Failed to fetch (Status: ${response.status})`);
+
         const data = await response.json();
-        setProduct(data);
+        
+        // Validate and convert price
+        const price = parseFloat(data.price);
+        if (isNaN(price)) throw new Error('Invalid price format');
+        if (!Array.isArray(data.sizes)) throw new Error('Invalid sizes data');
+
+        setProduct({ ...data, price });
+        setError(null);
       } catch (error) {
-        console.error("Error fetching product data:", error);
+        setError(error.message);
+        setProduct(null);
+      } finally {
+        setLoading(false);
       }
     };
 
     fetchProductData();
-  }, [id]);  // Re-run when the product ID changes
+  }, [id]);
 
-  if (!product) {
-    return <p>Loading...</p>;
-  }
+  const handleQuantityChange = (operation) => {
+    setQuantity(prev => Math.max(1, operation === 'increment' ? prev + 1 : prev - 1));
+  };
+
+  const calculatePrice = () => {
+    if (!product?.price || !selectedSize) return 0;
+
+    const basePrice = product.price;
+    const multiplier = sizePriceMultiplier[selectedSize] || 1; // Default to 1 if multiplier is missing
+    const total = basePrice * multiplier * quantity;
+    return total.toFixed(2);
+  };
+
+  if (loading) return <div className="container mx-auto px-4 py-8">Loading...</div>;
+  if (error) return (
+    <div className="container mx-auto px-4 py-8 text-red-500">
+      <p>Error: {error}</p>
+      <a href="/shop" className="text-blue-600 hover:underline mt-4 block">
+        Return to Shop
+      </a>
+    </div>
+  );
+  if (!product) return <div className="container mx-auto px-4 py-8">Product not found</div>;
 
   return (
     <div className="container mx-auto px-4 py-8">
@@ -31,17 +78,89 @@ const Product = () => {
           <img
             src={product.image}
             alt={product.name}
-            className="w-full h-auto rounded-lg shadow-lg"
+            className="w-full h-[600px] object-cover rounded-lg shadow-lg border"
+            onError={(e) => e.target.src = '/fallback-image.jpg'}
           />
         </div>
-        <div className="flex-1">
-          <h2 className="text-3xl font-bold">{product.name}</h2>
-          <p className="text-lg text-gray-700 mt-2">{product.description}</p>
-          <p className="text-xl font-semibold mt-4">Price: ${product.price}</p>
+
+        <div className="flex-1 space-y-6">
+          <h1 className="text-4xl font-bold">{product.name}</h1>
           
-          <div className="mt-6">
-            <button className="bg-black text-white px-6 py-3 rounded-lg text-lg">
-              Add to Cart
+          <div className="text-2xl font-semibold text-gray-800">
+            ₹{calculatePrice()}
+          </div>
+
+          <div className="space-y-4">
+            <h3 className="text-xl font-semibold">Select Size</h3>
+            <div className="grid grid-cols-4 gap-3">
+              {product.sizes.map(size => (
+                <button
+                  key={size}
+                  onClick={() => setSelectedSize(size)}
+                  className={`p-3 border rounded-lg text-center ${
+                    selectedSize === size ? "bg-black text-white" : "hover:bg-gray-100"
+                  }`}
+                >
+                  {size}
+                  {sizePriceMultiplier[size] > 1 && (
+                    <span className="block text-xs mt-1">
+                      (+{(sizePriceMultiplier[size] - 1) * 100}%)
+                    </span>
+                  )}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <div className="space-y-4">
+            <h3 className="text-xl font-semibold">Quantity</h3>
+            <div className="flex items-center gap-4">
+              <button
+                onClick={() => handleQuantityChange('decrement')}
+                className="px-4 py-2 border rounded-lg hover:bg-gray-100 w-12"
+                disabled={quantity <= 1}
+              >
+                -
+              </button>
+              <span className="text-xl w-12 text-center">{quantity}</span>
+              <button
+                onClick={() => handleQuantityChange('increment')}
+                className="px-4 py-2 border rounded-lg hover:bg-gray-100 w-12"
+              >
+                +
+              </button>
+            </div>
+          </div>
+
+          <div className="space-y-4">
+            <h3 className="text-xl font-semibold">Product Details</h3>
+            <div className="grid grid-cols-2 gap-4">
+              <div><p className="font-medium">Fabric:</p><p>{product.fabric}</p></div>
+              <div><p className="font-medium">Pattern:</p><p>{product.pattern}</p></div>
+              <div><p className="font-medium">Net Quantity:</p><p>{product.netQuantity}</p></div>
+              <div><p className="font-medium">Sizes:</p><p>{product.sizes.join(', ')}</p></div>
+            </div>
+          </div>
+
+          <div className="space-y-3">
+            {product.features?.comfort && <p>✓ {product.features.comfort}</p>}
+            {product.features?.material && <p>✓ {product.features.material}</p>}
+            {product.features?.waistband && <p>✓ {product.features.waistband}</p>}
+            {product.features?.additional?.map((f, i) => <p key={i}>✓ {f}</p>)}
+          </div>
+
+          <div className="flex gap-4">
+            <button
+              className="bg-black text-white px-8 py-4 rounded-lg w-full hover:bg-gray-800 disabled:opacity-50"
+              disabled={!selectedSize}
+            >
+              {selectedSize ? `Add ${quantity} to Cart - ₹${calculatePrice()}` : "Select Size"}
+            </button>
+            <button
+              className="border-2 border-black px-8 py-4 rounded-lg w-full hover:bg-gray-50 disabled:opacity-50"
+              disabled={!selectedSize}
+            >
+              Buy Now
             </button>
           </div>
         </div>
