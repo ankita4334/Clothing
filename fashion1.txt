@@ -1,0 +1,66 @@
+[
+  {
+    "_id": "1",
+    "name": "Men's Formal Shirt",
+    "image": "https://example.com/mens-formal-shirt.jpg",
+    "category": "men",
+    "subCategory": "shirt",
+    "price": 29.99
+  },
+  {
+    "_id": "2",
+    "name": "Men's Casual Pants",
+    "image": "https://example.com/mens-casual-pants.jpg",
+    "category": "men",
+    "subCategory": "pant",
+    "price": 39.99
+  },
+  {
+    "_id": "3",
+    "name": "Women's Summer Dress",
+    "image": "https://example.com/womens-dress.jpg",
+    "category": "women",
+    "subCategory": "dress",
+    "price": 49.99
+  },
+  {
+    "_id": "4",
+    "name": "Women's T-Shirt",
+    "image": "https://example.com/womens-tshirt.jpg",
+    "category": "women",
+    "subCategory": "shirt",
+    "price": 19.99
+  },
+  {
+    "_id": "5",
+    "name": "Kids' Cartoon T-Shirt",
+    "image": "https://example.com/kids-cartoon-shirt.jpg",
+    "category": "kids",
+    "subCategory": "shirt",
+    "price": 14.99
+  },
+  {
+    "_id": "6",
+    "name": "Kids' Denim Jeans",
+    "image": "https://example.com/kids-jeans.jpg",
+    "category": "kids",
+    "subCategory": "pant",
+    "price": 24.99
+  },
+  {
+    "_id": "7",
+    "name": "Running Shoes",
+    "image": "https://example.com/running-shoes.jpg",
+    "category": "sports",
+    "subCategory": "shoes",
+    "price": 59.99
+  },
+  {
+    "_id": "8",
+    "name": "Men's Sports Jacket",
+    "image": "https://example.com/mens-sports-jacket.jpg",
+    "category": "sports",
+    "subCategory": "jacket",
+    "price": 79.99
+  }
+]

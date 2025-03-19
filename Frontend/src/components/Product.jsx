@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
 const Product = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
   const [product, setProduct] = useState(null);
   const [selectedSize, setSelectedSize] = useState(null);
   const [quantity, setQuantity] = useState(1);
@@ -23,18 +24,17 @@ const Product = () => {
       try {
         setLoading(true);
         const response = await fetch(`http://localhost:3000/fashion/${id}`);
-        
-        if (response.status === 404) throw new Error('Product not found');
+
+        if (response.status === 404) throw new Error("Product not found");
         if (!response.ok) throw new Error(`Failed to fetch (Status: ${response.status})`);
 
         const data = await response.json();
-        
-        // Validate and convert price
-        const price = parseFloat(data.price);
-        if (isNaN(price)) throw new Error('Invalid price format');
-        if (!Array.isArray(data.sizes)) throw new Error('Invalid sizes data');
 
-        setProduct({ ...data, price });
+        if (!data.price || isNaN(parseFloat(data.price))) {
+          throw new Error("Invalid product price");
+        }
+
+        setProduct({ ...data, price: parseFloat(data.price) });
         setError(null);
       } catch (error) {
         setError(error.message);
@@ -48,16 +48,31 @@ const Product = () => {
   }, [id]);
 
   const handleQuantityChange = (operation) => {
-    setQuantity(prev => Math.max(1, operation === 'increment' ? prev + 1 : prev - 1));
+    setQuantity((prev) => Math.max(1, operation === "increment" ? prev + 1 : prev - 1));
   };
 
   const calculatePrice = () => {
-    if (!product?.price || !selectedSize) return 0;
-
+    if (!product || !selectedSize) return product?.price || 0;
     const basePrice = product.price;
-    const multiplier = sizePriceMultiplier[selectedSize] || 1; // Default to 1 if multiplier is missing
-    const total = basePrice * multiplier * quantity;
-    return total.toFixed(2);
+    const multiplier = sizePriceMultiplier[selectedSize] || 1;
+    return (basePrice * multiplier * quantity).toFixed(2);
+  };
+
+  const handleAddToCart = () => {
+    if (!selectedSize) return;
+    const cartItem = {
+      id: product.id,
+      name: product.name,
+      image: product.image,
+      price: calculatePrice(),
+      size: selectedSize,
+      quantity,
+    };
+
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+    cart.push(cartItem);
+    localStorage.setItem("cart", JSON.stringify(cart));
+    navigate("/cart");
   };
 
   if (loading) return <div className="container mx-auto px-4 py-8">Loading...</div>;
@@ -79,13 +94,13 @@ const Product = () => {
             src={product.image}
             alt={product.name}
             className="w-full h-[600px] object-cover rounded-lg shadow-lg border"
-            onError={(e) => e.target.src = '/fallback-image.jpg'}
+            onError={(e) => (e.target.src = "/fallback-image.jpg")}
           />
         </div>
 
         <div className="flex-1 space-y-6">
           <h1 className="text-4xl font-bold">{product.name}</h1>
-          
+
           <div className="text-2xl font-semibold text-gray-800">
             ₹{calculatePrice()}
           </div>
@@ -93,13 +108,12 @@ const Product = () => {
           <div className="space-y-4">
             <h3 className="text-xl font-semibold">Select Size</h3>
             <div className="grid grid-cols-4 gap-3">
-              {product.sizes.map(size => (
+              {product.sizes.map((size) => (
                 <button
                   key={size}
                   onClick={() => setSelectedSize(size)}
-                  className={`p-3 border rounded-lg text-center ${
-                    selectedSize === size ? "bg-black text-white" : "hover:bg-gray-100"
-                  }`}
+                  className={`p-3 border rounded-lg text-center ${selectedSize === size ? "bg-black text-white" : "hover:bg-gray-100"
+                    }`}
                 >
                   {size}
                   {sizePriceMultiplier[size] > 1 && (
@@ -113,10 +127,20 @@ const Product = () => {
           </div>
 
           <div className="space-y-4">
+            <h3 className="text-xl font-semibold">Product Details</h3>
+            <div className="grid grid-cols-2 gap-4">
+              <div><p className="font-medium">Fabric:</p><p>{product.fabric}</p></div>
+              <div><p className="font-medium">Pattern:</p><p>{product.pattern}</p></div>
+              <div><p className="font-medium">Net Quantity:</p><p>{product.netQuantity}</p></div>
+              <div><p className="font-medium">Sizes:</p><p>{product.sizes.join(", ")}</p></div>
+            </div>
+          </div>
+
+          <div className="space-y-4">
             <h3 className="text-xl font-semibold">Quantity</h3>
             <div className="flex items-center gap-4">
               <button
-                onClick={() => handleQuantityChange('decrement')}
+                onClick={() => handleQuantityChange("decrement")}
                 className="px-4 py-2 border rounded-lg hover:bg-gray-100 w-12"
                 disabled={quantity <= 1}
               >
@@ -124,7 +148,7 @@ const Product = () => {
               </button>
               <span className="text-xl w-12 text-center">{quantity}</span>
               <button
-                onClick={() => handleQuantityChange('increment')}
+                onClick={() => handleQuantityChange("increment")}
                 className="px-4 py-2 border rounded-lg hover:bg-gray-100 w-12"
               >
                 +
@@ -132,37 +156,37 @@ const Product = () => {
             </div>
           </div>
 
-          <div className="space-y-4">
-            <h3 className="text-xl font-semibold">Product Details</h3>
-            <div className="grid grid-cols-2 gap-4">
-              <div><p className="font-medium">Fabric:</p><p>{product.fabric}</p></div>
-              <div><p className="font-medium">Pattern:</p><p>{product.pattern}</p></div>
-              <div><p className="font-medium">Net Quantity:</p><p>{product.netQuantity}</p></div>
-              <div><p className="font-medium">Sizes:</p><p>{product.sizes.join(', ')}</p></div>
-            </div>
-          </div>
-
-          <div className="space-y-3">
-            {product.features?.comfort && <p>✓ {product.features.comfort}</p>}
-            {product.features?.material && <p>✓ {product.features.material}</p>}
-            {product.features?.waistband && <p>✓ {product.features.waistband}</p>}
-            {product.features?.additional?.map((f, i) => <p key={i}>✓ {f}</p>)}
-          </div>
-
           <div className="flex gap-4">
             <button
+              onClick={handleAddToCart}
               className="bg-black text-white px-8 py-4 rounded-lg w-full hover:bg-gray-800 disabled:opacity-50"
               disabled={!selectedSize}
             >
               {selectedSize ? `Add ${quantity} to Cart - ₹${calculatePrice()}` : "Select Size"}
             </button>
             <button
-              className="border-2 border-black px-8 py-4 rounded-lg w-full hover:bg-gray-50 disabled:opacity-50"
-              disabled={!selectedSize}
-            >
-              Buy Now
-            </button>
+  onClick={() =>
+    navigate("/prodsummary", {
+      state: {
+        product: {
+          id: product.id,  
+          name: product.name,
+          price: calculatePrice(),
+        },
+        quantity: quantity,
+        totalPrice: calculatePrice(),
+      },
+    })
+  }
+  className="border-2 border-black px-8 py-4 rounded-lg w-full hover:bg-gray-50 disabled:opacity-50"
+  disabled={!selectedSize}
+>
+  Buy Now
+</button>
+
           </div>
+
+
         </div>
       </div>
     </div>

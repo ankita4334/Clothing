@@ -31,4 +31,6 @@ export const getFashionById=async(req,res)=>{
     }
 }
 
+
+
 export default {fashion,getFashionById};

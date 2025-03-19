@@ -15,6 +15,10 @@ import Logout from "./components/Logout";
 import ProtectedRoutes from "./utils/ProtectedRoutes";
 import Pslider from "./components/Pslider";
 import Product from "./components/Product";
+import Cart from "./components/Cart";
+import Buy from "./components/Buy";
+import OrderSuccess from "./components/OrderSuccess";
+import ProdSummary from "./components/prodSummary";
 
 function App() {
   return (
@@ -37,6 +41,12 @@ function App() {
         <Route path="/about" element={<AboutUs/>} />
         <Route path="/pslider" element={<Pslider/>} />
         <Route path="/product/:id" element={<Product/>}/>
+        <Route path="/cart" element={<Cart />} />
+        <Route path="/buy/:id" element={<Buy />} />
+        <Route path="/ordersuccess" element={<OrderSuccess />} />
+        <Route path="/prodsummary" element={<ProdSummary />} />
+
+
        
         </Route>
       </Routes>
