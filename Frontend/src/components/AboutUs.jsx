@@ -5,13 +5,9 @@ const AboutUs = () => {
     <section className="max-w-6xl mx-auto px-4 py-12 mt-5">
       <div className="flex flex-col md:flex-row gap-8">
         <div className="md:w-1/2 space-y-6">
-          <h1 className="text-4xl md:text-5xl font-bold text-black mt-9">About Our Creative Studio</h1>
+          <h1 className="text-4xl md:text-5xl font-bold text-black mt-9">About Our Fashion Studio</h1>
           <p className="text-sm text-gray-600 leading-relaxed">
-            At Lumina Designs, we blend innovation with craftsmanship to create extraordinary digital experiences. 
-            Founded in 2015, our team of passionate designers and developers has been transforming ideas into 
-            impactful visual solutions for clients across 15+ countries. We specialize in UI/UX design, brand 
-            identity, and interactive web experiences that captivate audiences and drive results.
-          </p>
+          At <b>Bliss</b>, we blend fashion with technology to create a seamless and immersive shopping experience. Founded in 2025, we have been redefining online fashion by introducing <b>virtual try-on avatars</b>, allowing customers to visualize outfits in real-time before making a purchase. Our platform offers cutting-edge digital fashion solutions, from exclusive collections to AI-powered styling, ensuring every shopper finds their perfect look effortlessly. With innovation at our core, we are committed to making fashion more accessible, interactive, and personalized like never before.</p>
           <a href="/shop"><button className="text-blue-600 hover:underline font-semibold">
             EXPLORE OUR WORK →
           </button></a>

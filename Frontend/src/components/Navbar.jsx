@@ -1,8 +1,9 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../store/auth"; // Import useAuth
 
 const Navbar = () => {
+  const navigate = useNavigate(); // ✅ Initialize useNavigate
   const { isLoggedIn, user, cartCount } = useAuth(); // Get cartCount from context
 
   return (
@@ -18,18 +19,10 @@ const Navbar = () => {
             Bliss <i className="fa-brands fa-bluesky"></i>
           </Link>
           <ul className="menu menu-horizontal space-x-4 text-2xl">
-            <li>
-              <Link to="/">Home</Link>
-            </li>
-            <li>
-              <Link to="/shop">Shop</Link>
-            </li>
-            <li>
-              <Link to="/about">About</Link>
-            </li>
-            <li>
-              <Link to="/contact">Contact</Link>
-            </li>
+            <li><Link to="/">Home</Link></li>
+            <li><Link to="/shop">Shop</Link></li>
+            <li><Link to="/about">About</Link></li>
+            <li><Link to="/contact">Contact</Link></li>
           </ul>
         </div>
 
@@ -51,7 +44,10 @@ const Navbar = () => {
         <div className="flex-none ml-2 flex space-x-3">
           {/* Cart */}
           <div className="dropdown dropdown-end">
-            <div tabIndex={0} role="button" className="btn btn-ghost btn-circle">
+            <button
+              className="btn btn-ghost btn-circle"
+              onClick={() => navigate("/cart")} // ✅ Corrected onClick
+            >
               <div className="indicator">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -71,7 +67,7 @@ const Navbar = () => {
                   {cartCount} {/* Display cart count */}
                 </span>
               </div>
-            </div>
+            </button>
           </div>
 
           {/* Profile Section */}
@@ -86,17 +82,10 @@ const Navbar = () => {
                 </div>
               </div>
               <ul tabIndex={0} className="menu menu-sm dropdown-content bg-base-100 rounded-box z-10 mt-3 w-64 p-4 shadow">
-                <b>
-                  <li
-                    className="dropdown-item disabled"
-                    style={{ color: "black", paddingLeft: "10px" }}
-                  >
-                    Welcome, {user ? user.username : "Guest"}
-                  </li>
-                </b>
-                <li>
-                  <Link to="/logout">Logout</Link>
+                <li className="dropdown-item disabled" style={{ color: "black", paddingLeft: "10px" }}>
+                  <b>Welcome, {user ? user.username : "Guest"}</b>
                 </li>
+                <li><Link to="/logout">Logout</Link></li>
               </ul>
             </div>
           ) : (
@@ -110,14 +99,8 @@ const Navbar = () => {
                 </div>
               </div>
               <ul tabIndex={0} className="menu menu-sm dropdown-content bg-base-100 rounded-box z-10 mt-3 w-64 p-4 shadow">
-                <li>
-                  <Link to="/login">Login</Link>
-                </li>
-                <li>
-                  <Link to="/register" className="badge">
-                    Register
-                  </Link>
-                </li>
+                <li><Link to="/login">Login</Link></li>
+                <li><Link to="/register" className="badge">Register</Link></li>
               </ul>
             </div>
           )}

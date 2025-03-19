@@ -19,6 +19,7 @@ import Cart from "./components/Cart";
 import Buy from "./components/Buy";
 import OrderSuccess from "./components/OrderSuccess";
 import ProdSummary from "./components/prodSummary";
+import Avatar from "./components/Avatar";
 
 function App() {
   return (
@@ -45,6 +46,7 @@ function App() {
         <Route path="/buy/:id" element={<Buy />} />
         <Route path="/ordersuccess" element={<OrderSuccess />} />
         <Route path="/prodsummary" element={<ProdSummary />} />
+        <Route path="/avatar" element={<Avatar />} />
 
 
        
