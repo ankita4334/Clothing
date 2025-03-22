@@ -20,6 +20,7 @@ import Buy from "./components/Buy";
 import OrderSuccess from "./components/OrderSuccess";
 import ProdSummary from "./components/prodSummary";
 import Avatar from "./components/Avatar";
+import AuthModal from "./components/AuthModal";
 
 function App() {
   return (
@@ -31,25 +32,22 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/logout" element={<Logout />} />
 
-        <Route element={<ProtectedRoutes/>}>
-
-        <Route path="/shop" element={<Shop />} />
-        <Route path="/itemhome" element={<ItemHome />} />
-        <Route path="/contact" element={<Contactus />} />
-        <Route path="/slider" element={<Slider/>} />
-        <Route path="/hero" element={<Hero/>} />
-        <Route path="/categories" element={<Categories/>} />
-        <Route path="/about" element={<AboutUs/>} />
-        <Route path="/pslider" element={<Pslider/>} />
-        <Route path="/product/:id" element={<Product/>}/>
-        <Route path="/cart" element={<Cart />} />
-        <Route path="/buy/:id" element={<Buy />} />
-        <Route path="/ordersuccess" element={<OrderSuccess />} />
-        <Route path="/prodsummary" element={<ProdSummary />} />
-        <Route path="/avatar" element={<Avatar />} />
-
-
-       
+        <Route path="/auth" element={<AuthModal />} />
+        <Route element={<ProtectedRoutes />}>
+          <Route path="/shop" element={<Shop />} />
+          <Route path="/itemhome" element={<ItemHome />} />
+          <Route path="/contact" element={<Contactus />} />
+          <Route path="/slider" element={<Slider />} />
+          <Route path="/hero" element={<Hero />} />
+          <Route path="/categories" element={<Categories />} />
+          <Route path="/about" element={<AboutUs />} />
+          <Route path="/pslider" element={<Pslider />} />
+          <Route path="/product/:id" element={<Product />} />
+          <Route path="/cart" element={<Cart />} />
+          <Route path="/buy/:id" element={<Buy />} />
+          <Route path="/ordersuccess" element={<OrderSuccess />} />
+          <Route path="/prodsummary" element={<ProdSummary />} />
+          <Route path="/avatar" element={<Avatar />} />
         </Route>
       </Routes>
       <Footer />
