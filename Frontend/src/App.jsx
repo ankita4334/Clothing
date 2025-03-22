@@ -20,19 +20,22 @@ import Buy from "./components/Buy";
 import OrderSuccess from "./components/OrderSuccess";
 import ProdSummary from "./components/prodSummary";
 import Avatar from "./components/Avatar";
-import AuthModal from "./components/AuthModal";
+import { useState } from "react";
 
 function App() {
+  const [isAuthModalOpen,setIsAuthModalOpen]= useState(false);
+
   return (
     <BrowserRouter>
-      <Navbar />
+      <Navbar 
+      isAuthModalOpen={isAuthModalOpen}
+      setIsAuthModalOpen={setIsAuthModalOpen}/>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/logout" element={<Logout />} />
 
-        <Route path="/auth" element={<AuthModal />} />
         <Route element={<ProtectedRoutes />}>
           <Route path="/shop" element={<Shop />} />
           <Route path="/itemhome" element={<ItemHome />} />

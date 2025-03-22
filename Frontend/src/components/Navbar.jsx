@@ -1,9 +1,20 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import { useAuth } from "../store/auth";
+import React, { useContext, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { logout } from "../services/AuthService";
+import AuthModal from "./AuthModal";
 
 const Navbar = () => {
-  const { isLoggedIn, user, cartCount } = useAuth();
+  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
+  const navigate = useNavigate();
+
+  const { isLoggedIn, user, cartCount } = useContext(AppContent);
+
+  // const { isLoggedIn, user, cartCount } = useAuth();
+
+  const handleLogout = () => {
+    logout();
+    navigate("/");
+  };
 
   return (
     <>
@@ -175,12 +186,19 @@ const Navbar = () => {
               </ul>
             </div>
           ) : (
-            <Link to="/auth" className="btn btn-outline">
+            <button
+              onClick={() => setIsAuthModalOpen(true)}
+              className="btn btn-outline"
+            >
               Register
-            </Link>
+            </button>
           )}
         </div>
       </div>
+      <AuthModal
+        isOpen={isAuthModalOpen}
+        onClose={() => setIsAuthModalOpen(false)}
+      />
     </>
   );
 };
