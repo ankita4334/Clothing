@@ -1,17 +1,25 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Outlet, Navigate } from "react-router-dom";
 import { AppContent } from "../context/AppContext";
 import AuthModal from "../components/AuthModal";
 
 const ProtectedRoutes = () => {
+  const { isLoggedIn } = useContext(AppContent);
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
+  const [checkedAuth, setCheckedAuth] = useState(false);
 
-  const { isLoggedIn, userData } = useContext(AppContent);
-  console.log("userData: ", userData);
+  useEffect(() => {
+    if (!isLoggedIn) {
+      setIsAuthModalOpen(true);
+    }
+    setCheckedAuth(true);
+  }, [isLoggedIn]);
 
-  if (!isLoggedIn) {
-    setIsAuthModalOpen(true);
-  }
+  const handleCloseModal = () => {
+    setIsAuthModalOpen(false);
+  };
+
+  if (!checkedAuth) return null;
 
   return (
     <>
@@ -19,11 +27,8 @@ const ProtectedRoutes = () => {
         <Outlet />
       ) : (
         <>
-          <AuthModal
-            isOpen={isAuthModalOpen}
-            onClose={() => setIsAuthModalOpen(false)}
-          />
-          <Navigate to="/" replace />
+          <AuthModal isOpen={isAuthModalOpen} onClose={handleCloseModal} />
+          {!isAuthModalOpen && checkedAuth && <Navigate to="/" replace />}
         </>
       )}
     </>
