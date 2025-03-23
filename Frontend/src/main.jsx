@@ -3,7 +3,7 @@ import { createRoot } from "react-dom/client";
 import "./index.css";
 import App from "./App.jsx";
 import { AuthProvider } from "./store/auth.jsx";
-import { ToastContainer, Bounce, Slide, Flip } from "react-toastify";
+import { ToastContainer, Flip } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import { AppContextProvider } from "./context/AppContext.jsx";

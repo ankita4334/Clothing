@@ -1,16 +1,17 @@
 import React, { useContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { AppContent } from "../context/AppContext";
 import { login, register } from "../services/AuthService";
 import registerImage from "../assets/register1.jpg";
 import loginImage from "../assets/login1.jpg";
-import { useNavigate } from "react-router-dom";
+import "../styles/authmodel.css";
 
 function AuthModal({ isOpen, onClose }) {
   const [isSignup, setIsSignup] = useState(true);
   const [formData, setFormData] = useState({
-    name: "",
+    username: "",
     email: "",
     password: "",
   });
@@ -22,7 +23,7 @@ function AuthModal({ isOpen, onClose }) {
 
   const toggleForm = () => {
     setIsSignup(!isSignup);
-    setFormData({ name: "", email: "", password: "" });
+    setFormData({ username: "", email: "", password: "" });
     setErrors({});
   };
 
@@ -33,7 +34,8 @@ function AuthModal({ isOpen, onClose }) {
 
   const validateFields = () => {
     let newErrors = {};
-    if (isSignup && !formData.name.trim()) newErrors.name = "Name is required!";
+    if (isSignup && !formData.username.trim())
+      newErrors.name = "Name is required!";
     if (!formData.email.trim()) newErrors.email = "Email is required!";
     if (!formData.password.trim())
       newErrors.password = "Password cannot be empty!";
@@ -81,128 +83,124 @@ function AuthModal({ isOpen, onClose }) {
   if (!isOpen) return null;
 
   return (
-    <>
-      <div className="flex justify-center items-center h-screen bg-gray-100 bg-opacity-50 z-50">
-        <div className="flex max-w-[800px] h-[500px] bg-white rounded-lg shadow-lg overflow-hidden transition-all duration-500">
+    isOpen && (
+      <div
+        className="modal-overlay flex justify-center items-center h-screen bg-gray-100 bg-opacity-50 z-50"
+        onClick={onClose}
+      >
+        <div
+          className="modal-content flex max-w-[800px] h-[500px] bg-white rounded-lg shadow-lg overflow-hidden transition-all duration-500"
+          onClick={(e) => e.stopPropagation()}
+        >
           {/* Image Section */}
           <div
-            className={`max-w-1/2 h-full flex items-center justify-center transition-all duration-500 ${
-              isLogin ? "order-2" : "order-1"
+            className={`image-section max-w-1/2 h-full flex items-center justify-center transition-all duration-500 ${
+              isSignup ? "order-1" : "order-2"
             }`}
           >
             <img
-              src={isLogin ? loginImage : registerImage}
+              src={isSignup ? registerImage : loginImage}
               alt="Auth Illustration"
-              className="w-full h-full object-cover"
+              className="auth-image w-full h-full object-cover"
             />
           </div>
 
           {/* Form Section */}
           <div
-            className={`w-1/2 p-10 flex flex-col justify-center transition-all duration-500 ${
+            className={`form-section w-1/2 p-10 flex flex-col justify-center transition-all duration-500 ${
               isSignup ? "order-2" : "order-1"
             }`}
           >
-            {/* Close Button */}
-            <button
-              onClick={onClose}
-              className="absolute top-2 right-2 text-gray-700 hover:text-gray-900"
-            >
+            <button className="close-btn" onClick={onClose}>
               ×
             </button>
             <h2 className="text-center text-3xl font-bold text-gray-700">
-              {isSignup ? "Register" : "Login"}
+              {isSignup ? "Sign Up" : "Login"}
             </h2>
 
-            {/* Form Fields */}
-            <form className="mt-6" onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit} className="auth-form mt-6">
               {isSignup && (
                 <>
-                  <div className="mb-4">
-                    <label className="block text-gray-700">Name</label>
-                    <input
-                      type="text"
-                      placeholder="Your Name"
-                      value={formData.name}
-                      onChange={handleChange}
-                      className="w-full px-2 py-2 border-b border-gray-500 focus:border-gray-700 focus:outline-none bg-transparent"
-                    />
-                    {errors.name && (
-                      <span className="error">{errors.name}</span>
-                    )}
-                  </div>
+                  <input
+                    type="text"
+                    name="username"
+                    placeholder="Your Name"
+                    value={formData.username}
+                    onChange={handleChange}
+                    className="w-full px-2 py-2 border-b border-gray-500 focus:border-gray-700 focus:outline-none bg-transparent"
+                  />
+                  {errors.name && (
+                    <span className="error text-red-500 text-sm">
+                      {errors.name}
+                    </span>
+                  )}
                 </>
               )}
 
-              <div className="mb-4">
-                <label className="block text-gray-700">Email</label>
-                <input
-                  type="email"
-                  placeholder="Your Email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  className="w-full px-2 py-2 border-b border-gray-500 focus:border-gray-700 focus:outline-none bg-transparent"
-                />
-                {errors.email && <span className="error">{errors.email}</span>}
-              </div>
+              <input
+                type="email"
+                name="email"
+                placeholder="Your Email"
+                value={formData.email}
+                onChange={handleChange}
+                className="w-full px-2 py-2 border-b border-gray-500 focus:border-gray-700 focus:outline-none bg-transparent"
+              />
+              {errors.email && (
+                <span className="error text-red-500 text-sm">
+                  {errors.email}
+                </span>
+              )}
 
-              <div className="mb-4">
-                <label className="block text-gray-700">Password</label>
-                <input
-                  type="password"
-                  placeholder="Your Password"
-                  value={formData.password}
-                  onChange={handleChange}
-                  className="w-full px-2 py-2 border-b border-gray-500 focus:border-gray-700 focus:outline-none bg-transparent"
-                />
-                {errors.password && (
-                  <span className="error">{errors.password}</span>
-                )}
-              </div>
+              <input
+                type="password"
+                name="password"
+                placeholder="Password"
+                value={formData.password}
+                onChange={handleChange}
+                className="w-full px-2 py-2 border-b border-gray-500 focus:border-gray-700 focus:outline-none bg-transparent"
+              />
+              {errors.password && (
+                <span className="error text-red-500 text-sm">
+                  {errors.password}
+                </span>
+              )}
 
               {!isSignup && (
-                <div className="text-right text-sm">
-                  <a
-                    href="#"
-                    className="text-gray-700 hover:underline"
+                <p className="fpass text-right text-sm">
+                  <span
                     onClick={(e) => {
                       e.preventDefault();
-                      onClose();
-                      navigate("/forgetPassword");
+                      onClose && onClose();
+                      navigate("/forgetPass");
                     }}
                   >
                     Forgot Password?
-                  </a>
-                </div>
+                  </span>
+                </p>
               )}
 
-              {/* Submit Button */}
               <button
-                className="w-full mt-4 bg-gray-800 text-white py-2 rounded-md hover:opacity-90"
+                type="submit"
                 disabled={loading}
+                className="w-full mt-4 bg-gray-800 text-white py-2 rounded-md hover:opacity-90"
               >
                 {loading ? "Processing..." : isSignup ? "Sign Up" : "Login"}
               </button>
             </form>
 
-            {/* Switch Between Forms */}
-            <div className="mt-4 text-center">
-              <p className="text-gray-800">
-                {isSignup
-                  ? "Already have an account?"
-                  : "Don't have an account?"}{" "}
-                <button
-                  onClick={toggleForm}
-                  className="text-gray-00 font-bold ml-1"
-                >
-                  {isSignup ? "Login" : "Sign Up"}
-                </button>
-              </p>
-            </div>
+            <p className="toggle-text text-gray-800">
+              {isSignup ? "Already have an account?" : "Don't have an account?"}{" "}
+              <span
+                onClick={toggleForm}
+                className="text-gray-700 font-bold ml-1"
+              >
+                {isSignup ? "Login" : "Sign Up"}
+              </span>
+            </p>
           </div>
         </div>
       </div>
-    </>
+    )
   );
 }
 

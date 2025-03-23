@@ -1,18 +1,19 @@
 import React, { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { logout } from "../services/AuthService";
 import AuthModal from "./AuthModal";
+import { AppContent } from "../context/AppContext";
 
 const Navbar = () => {
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
   const navigate = useNavigate();
 
-  const { isLoggedIn, user, cartCount } = useContext(AppContent);
+  const { isLoggedIn, userData, handleLogout } = useContext(AppContent);
+  console.log("userData: ", userData);
 
   // const { isLoggedIn, user, cartCount } = useAuth();
 
-  const handleLogout = () => {
-    logout();
+  const logout = () => {
+    handleLogout();
     navigate("/");
   };
 
@@ -139,11 +140,11 @@ const Navbar = () => {
                   d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
                 />
               </svg>
-              {cartCount > 0 && (
+              {/* {cartCount > 0 && (
                 <span className="badge badge-sm indicator-item">
                   {cartCount}
                 </span>
-              )}
+              )} */}
             </Link>
           </div>
           {/* Signup Button */}
@@ -154,11 +155,8 @@ const Navbar = () => {
                 role="button"
                 className="btn btn-ghost btn-circle avatar"
               >
-                <div className="w-10 rounded-full">
-                  <img
-                    alt="Profile"
-                    src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
-                  />
+                <div className="w-10 rounded-full text-2xl">
+                  {userData?.username?.charAt(0).toUpperCase() || ":)"}{" "}
                 </div>
               </div>
               <ul
@@ -177,7 +175,7 @@ const Navbar = () => {
                 </li>
                 <li>
                   <button
-                    onClick={handleLogout}
+                    onClick={logout}
                     className="hover:text-gray-700"
                   >
                     Logout
